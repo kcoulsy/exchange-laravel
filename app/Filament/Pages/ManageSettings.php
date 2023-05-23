@@ -12,6 +12,12 @@ class ManageSettings extends SettingsPage
 {
     protected static ?string $navigationIcon = 'heroicon-o-cog';
 
+    protected static ?string $navigationGroup = 'Admin';
+
+    protected static ?string $navigationLabel = 'Site Settings';
+
+    protected static ?int $navigationSort = 3;
+
     protected static string $settings = GeneralSettings::class;
 
     protected function getFormSchema(): array

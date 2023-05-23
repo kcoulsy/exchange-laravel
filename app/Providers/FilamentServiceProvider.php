@@ -29,9 +29,14 @@ class FilamentServiceProvider extends ServiceProvider
                     UserMenuItem::make()->label('Manage Users')->url(UserResource::getUrl())->icon('heroicon-s-users')
                 ]);
             }
+            Filament::registerNavigationGroups([
+                'Listing Management',
+                'User Management',
+                'Admin',
+            ]);
+            FilamentEnvironmentIndicator::configureUsing(function (FilamentEnvironmentIndicator $indicator) {
+                $indicator->visible = fn() => true;
+            }, isImportant: true);
         });
-        FilamentEnvironmentIndicator::configureUsing(function (FilamentEnvironmentIndicator $indicator) {
-            $indicator->visible = fn() => true;
-        }, isImportant: true);
     }
 }
