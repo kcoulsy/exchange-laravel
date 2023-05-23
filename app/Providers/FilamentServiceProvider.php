@@ -6,6 +6,7 @@ use App\Filament\Resources\UserResource;
 use Filament\Facades\Filament;
 use Filament\Navigation\UserMenuItem;
 use Illuminate\Support\ServiceProvider;
+use pxlrbt\FilamentEnvironmentIndicator\FilamentEnvironmentIndicator;
 
 class FilamentServiceProvider extends ServiceProvider
 {
@@ -29,5 +30,8 @@ class FilamentServiceProvider extends ServiceProvider
                 ]);
             }
         });
+        FilamentEnvironmentIndicator::configureUsing(function (FilamentEnvironmentIndicator $indicator) {
+            $indicator->visible = fn() => true;
+        }, isImportant: true);
     }
 }
