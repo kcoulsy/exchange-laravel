@@ -20,31 +20,31 @@ class RolesAndPermissions extends Seeder
         // reset cached roles and permissions
         app()[PermissionRegistrar::class]->forgetCachedPermissions();
 
-        $miscPerm = Permission::create(['name' => 'N/A']);
+        $miscPerm = Permission::updateOrCreate(['name' => 'N/A']);
         // create permissions
-        $userCreate = Permission::create(['name' => 'create users']);
-        $userRead = Permission::create(['name' => 'read users']);
-        $userUpdate = Permission::create(['name' => 'update users']);
-        $userDelete = Permission::create(['name' => 'delete users']);
+        $userCreate = Permission::updateOrCreate(['name' => 'create users']);
+        $userRead = Permission::updateOrCreate(['name' => 'read users']);
+        $userUpdate = Permission::updateOrCreate(['name' => 'update users']);
+        $userDelete = Permission::updateOrCreate(['name' => 'delete users']);
 
-        $roleCreate = Permission::create(['name' => 'create roles']);
-        $roleRead = Permission::create(['name' => 'read roles']);
-        $roleUpdate = Permission::create(['name' => 'update roles']);
-        $roleDelete = Permission::create(['name' => 'delete roles']);
+        $roleCreate = Permission::updateOrCreate(['name' => 'create roles']);
+        $roleRead = Permission::updateOrCreate(['name' => 'read roles']);
+        $roleUpdate = Permission::updateOrCreate(['name' => 'update roles']);
+        $roleDelete = Permission::updateOrCreate(['name' => 'delete roles']);
 
-        $permCreate = Permission::create(['name' => 'create permissions']);
-        $permRead = Permission::create(['name' => 'read permissions']);
-        $permUpdate = Permission::create(['name' => 'update permissions']);
-        $permDelete = Permission::create(['name' => 'delete permissions']);
+        $permCreate = Permission::updateOrCreate(['name' => 'create permissions']);
+        $permRead = Permission::updateOrCreate(['name' => 'read permissions']);
+        $permUpdate = Permission::updateOrCreate(['name' => 'update permissions']);
+        $permDelete = Permission::updateOrCreate(['name' => 'delete permissions']);
 
-        $adminRead = Permission::create(['name' => 'read admin']);
-        $adminUpdate = Permission::create(['name' => 'update admin']);
+        $adminRead = Permission::updateOrCreate(['name' => 'read admin']);
+        $adminUpdate = Permission::updateOrCreate(['name' => 'update admin']);
 
-        // $userRole = Role::create(['name' => 'user'])->syncPermissions([
+        // $userRole = Role::updateOrCreate(['name' => 'user'])->syncPermissions([
         //     $miscPerm
         // ]);
 
-        $adminRole = Role::create(['name' => 'admin'])->syncPermissions([
+        $adminRole = Role::updateOrCreate(['name' => 'admin'])->syncPermissions([
             $userCreate,
             $userRead,
             $userUpdate,
@@ -61,7 +61,7 @@ class RolesAndPermissions extends Seeder
             $adminUpdate,
         ]);
 
-        $superAdminRole = Role::create(['name' => 'super-admin'])->syncPermissions([
+        $superAdminRole = Role::updateOrCreate(['name' => 'super-admin'])->syncPermissions([
             $userCreate,
             $userRead,
             $userUpdate,
@@ -78,20 +78,28 @@ class RolesAndPermissions extends Seeder
             $adminUpdate,
         ]);
 
-        User::create([
-            'name' => 'Super Admin',
-            'email' => 'super@admin.com',
-            'password' => bcrypt('password'),
-            'email_verified_at' => now(),
-            'remember_token' => Str::random(10),
-        ])->assignRole($superAdminRole);
+        User::updateOrCreate(
+            [
+                'name' => 'Super Admin',
+                'email' => 'super@admin.com',
+            ],
+            [
+                'password' => bcrypt('password'),
+                'email_verified_at' => now(),
+                'remember_token' => Str::random(10),
+            ]
+        )->assignRole($superAdminRole);
 
-        User::create([
-            'name' => 'Admin',
-            'email' => 'admin@admin.com',
-            'password' => bcrypt('password'),
-            'email_verified_at' => now(),
-            'remember_token' => Str::random(10),
-        ])->assignRole($adminRole);
+        User::updateOrCreate(
+            [
+                'name' => 'Admin',
+                'email' => 'admin@admin.com',
+            ],
+            [
+                'password' => bcrypt('password'),
+                'email_verified_at' => now(),
+                'remember_token' => Str::random(10),
+            ]
+        )->assignRole($adminRole);
     }
 }
