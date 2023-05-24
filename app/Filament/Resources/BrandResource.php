@@ -13,7 +13,6 @@ use Filament\Tables;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Str;
-use Spatie\FilamentMarkdownEditor\MarkdownEditor;
 
 class BrandResource extends Resource
 {
@@ -35,7 +34,7 @@ class BrandResource extends Resource
                 Forms\Components\TextInput::make('slug')
                     ->autofocus()
                     ->required(),
-                MarkdownEditor::make('description')
+                Forms\Components\MarkdownEditor::make('description')
                     ->fileAttachmentsDisk('admin-uploads')
                     ->fileAttachmentsVisibility('public')
                     ->required(),
