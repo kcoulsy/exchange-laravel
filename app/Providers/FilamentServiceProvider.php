@@ -34,9 +34,9 @@ class FilamentServiceProvider extends ServiceProvider
                 'User Management',
                 'Admin',
             ]);
-            FilamentEnvironmentIndicator::configureUsing(function (FilamentEnvironmentIndicator $indicator) {
-                $indicator->visible = fn() => true;
-            }, isImportant: true);
         });
+        FilamentEnvironmentIndicator::configureUsing(function (FilamentEnvironmentIndicator $indicator) {
+            $indicator->visible = fn() => true;
+        }, isImportant: true);
     }
 }
