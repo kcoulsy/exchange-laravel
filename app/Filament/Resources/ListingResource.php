@@ -67,7 +67,8 @@ class ListingResource extends Resource
                 Forms\Components\TextInput::make('subtitle')
                     ->maxLength(255),
                 Forms\Components\TextInput::make('model')
-                    ->maxLength(255),
+                    ->maxLength(255)
+                    ->required(),
                 Forms\Components\TextInput::make('price')
                     ->required()
                     ->maxLength(255),

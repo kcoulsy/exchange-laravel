@@ -37,7 +37,6 @@ class BrandResource extends Resource
                 Forms\Components\MarkdownEditor::make('description')
                     ->fileAttachmentsDisk('admin-uploads')
                     ->fileAttachmentsVisibility('public')
-                    ->required(),
             ]);
     }
 

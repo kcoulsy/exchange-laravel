@@ -13,6 +13,10 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $this->call(RolesAndPermissions::class);
+        $this->call(Brands::class);
+        $this->call(Categories::class);
+        $this->call(Conditions::class);
+        $this->call(Currencies::class);
         // \App\Models\User::factory(10)->create();
 
         // \App\Models\User::factory()->create([
