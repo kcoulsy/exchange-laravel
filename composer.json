@@ -29,6 +29,7 @@
         "z3d0x/filament-logger": "^0.5.3"
     },
     "require-dev": {
+        "barryvdh/laravel-debugbar": "^3.8",
         "barryvdh/laravel-ide-helper": "^2.13",
         "doctrine/dbal": "^3.6",
         "fakerphp/faker": "^1.9.1",
