@@ -26,3 +26,5 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 });
+
+Route::get('/view-all', [App\Http\Controllers\CategoriesController::class, 'index'])->name('categories.index');
