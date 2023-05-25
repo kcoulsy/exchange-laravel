@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class CategoriesRelationManager extends RelationManager
 {
-    protected static string $relationship = 'categories';
+    protected static string $relationship = 'children';
     protected static ?string $inverseRelationship = 'parent';
 
     protected static ?string $recordTitleAttribute = 'parent_id';

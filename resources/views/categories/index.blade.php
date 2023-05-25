@@ -1,7 +1,27 @@
 <x-app-layout>
     <div class="container mx-auto flex">
         <div class="md:w-3/12 2xl:w-1/4 w-full">
-            <h2>filtrer</h2>
+            @if (isset($parent_category))
+                <a href="/{{ $parent_category->slug }}">{{ $parent_category->name }}</a>
+            @elseif (isset($category))
+                <a href="/view-all">View All</a>
+            @endif
+
+            @if (isset($category))
+                <h3 class="text-xl">{{ $category->name }}
+                    {{ $listings->total() > 0 ? ' (' . $listings->total() . ')' : '' }}
+                </h3>
+            @endif
+
+            <ul class="pl-2">
+
+                @foreach ($sub_categories as $sub_category)
+                    <li>
+                        <a href="/{{ $sub_category->slug }}">{{ $sub_category->name }}{{ $sub_category->listings_count > 0 ? ' (' . $sub_category->listings_count . ')' : '' }}
+                        </a>
+                    </li>
+                @endforeach
+            </ul>
         </div>
         <div class="md:w-9/12 2xl:w-3/4">
             {{ $listings->links() }}
