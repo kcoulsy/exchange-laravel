@@ -14,8 +14,9 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 class CategoriesRelationManager extends RelationManager
 {
     protected static string $relationship = 'categories';
+    protected static ?string $inverseRelationship = 'parent';
 
-    protected static ?string $recordTitleAttribute = 'name';
+    protected static ?string $recordTitleAttribute = 'parent_id';
 
     public static function form(Form $form): Form
     {
@@ -48,6 +49,8 @@ class CategoriesRelationManager extends RelationManager
                 Tables\Actions\CreateAction::make(),
             ])
             ->actions([
+
+                Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
             ])
