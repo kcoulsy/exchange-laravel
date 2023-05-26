@@ -6,12 +6,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Laravel\Scout\Searchable;
 use Staudenmeir\LaravelAdjacencyList\Eloquent\HasRecursiveRelationships;
 
 class Category extends Model
 {
-    use HasFactory;
-    use HasRecursiveRelationships;
+    use HasFactory, HasRecursiveRelationships, Searchable;
 
     protected $guarded = ['id'];
 
@@ -24,5 +24,13 @@ class Category extends Model
     public function recursiveListings()
     {
         return $this->hasManyOfDescendantsAndSelf(Listing::class);
+    }
+
+    public function toSearchableArray()
+    {
+        return [
+            'name' => $this->name,
+            'slug' => $this->slug,
+        ];
     }
 }
