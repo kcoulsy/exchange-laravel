@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\ListingResource\Pages;
 
 use App\Filament\Resources\ListingResource;
+use App\Models\Listing;
 use Filament\Pages\Actions;
 use Filament\Resources\Pages\ListRecords;
 
@@ -12,8 +13,18 @@ class ListListings extends ListRecords
 
     protected function getActions(): array
     {
-        return [
-            Actions\CreateAction::make(),
+        $actions = [
+            Actions\CreateAction::make()
         ];
+
+        if (!app()->environment('production')) {
+            $actions[] = Actions\Action::make('Seed 100 Listings')
+                ->label('Seed')
+                ->color('secondary')
+                ->icon('heroicon-o-refresh')
+                ->action(fn() => Listing::factory(100)->create());
+        }
+
+        return $actions;
     }
 }
