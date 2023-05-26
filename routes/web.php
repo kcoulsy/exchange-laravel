@@ -29,3 +29,4 @@ Route::middleware([
 
 Route::get('/view-all', [App\Http\Controllers\CategoriesController::class, 'index'])->name('categories.index');
 Route::get('/{category:slug}', [App\Http\Controllers\CategoriesController::class, 'show'])->name('categories.show');
+Route::get('/{category:slug}/{listing:slug}', [App\Http\Controllers\ListingsController::class, 'show'])->name('listings.show');

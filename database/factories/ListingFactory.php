@@ -22,14 +22,14 @@ class ListingFactory extends Factory
     public function definition(): array
     {
         $title = $this->faker->sentence();
-        $slug = \Str::slug($title);
+        $slug = uniqid() . '-' . \Str::slug($title);
         return [
             'title' => $title,
             'subtitle' => $this->faker->sentence(),
             'price' => $this->faker->randomFloat(2, 0, 100000),
             'is_por' => $this->faker->boolean(),
             'slug' => $slug,
-            'description' => $this->faker->paragraph(),
+            'description' => $this->faker->paragraph(2),
             'model' => $this->faker->sentence(),
             'location' => $this->faker->sentence(),
             'currency_id' => Currency::all()->random()->id,

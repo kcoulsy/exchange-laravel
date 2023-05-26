@@ -12,7 +12,7 @@ class CategoriesController extends Controller
     {
         $sub_categories = Category::where('parent_id', null)->withCount('recursiveListings')->get();
 
-        $listings = Listing::with('media')->paginate(10);
+        $listings = Listing::with('media')->with('category')->paginate(10);
 
         return view('categories.index')->with(['listings' => $listings, 'sub_categories' => $sub_categories]);
     }
@@ -23,7 +23,7 @@ class CategoriesController extends Controller
         $parent_category = $category->parent()->first();
         $sub_categories = $category->children()->withCount('recursiveListings')->get();
 
-        $listings = Listing::with('media')->whereIn('category_id', $all_sub_categories)->paginate(10);
+        $listings = Listing::with('media')->with('category')->whereIn('category_id', $all_sub_categories)->paginate(10);
 
         return view('categories.index')->with([
             'listings' => $listings,

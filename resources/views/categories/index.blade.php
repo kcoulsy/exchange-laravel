@@ -35,7 +35,11 @@
                             {{ $listing->getFirstMedia() }}
                         </div>
                         <div class="md:pl-3 md:w-9/12 2xl:w-3/4 flex flex-col">
-                            <h4 class="text-xl leading-8 text-gray-800 md:pt-0 pt-4">{{ $listing->title }}</h4>
+                            <h4 class="text-xl leading-8 text-gray-800 md:pt-0 pt-4">
+                                <a href="{{ $listing->getUrl() }}">
+                                    {{ $listing->title }}
+                                </a>
+                            </h4>
                             <p class="text-lg leading-8 text-gray-800 md:pt-0 pt-4">{{ $listing->subtitle }}</p>
                             <p class="text-xs leading-8 text-gray-600 pt-2">{{ $listing->model }}</p>
                         </div>

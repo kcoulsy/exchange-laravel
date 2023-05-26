@@ -40,4 +40,9 @@ class Listing extends Model implements HasMedia
             'description' => $this->description
         ];
     }
+
+    public function getUrl()
+    {
+        return "/{$this->category->slug}/{$this->slug}";
+    }
 }
