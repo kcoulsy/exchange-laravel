@@ -16,10 +16,13 @@
             <ul class="pl-2">
 
                 @foreach ($sub_categories as $sub_category)
-                    <li>
-                        <a href="/{{ $sub_category->slug }}">{{ $sub_category->name }}{{ $sub_category->listings_count > 0 ? ' (' . $sub_category->listings_count . ')' : '' }}
-                        </a>
-                    </li>
+                    @if ($sub_category->recursive_listings_count > 0)
+                        <li>
+                            <a href="/{{ $sub_category->slug }}">{{ $sub_category->name }}
+                                ({{ $sub_category->recursive_listings_count }})
+                            </a>
+                        </li>
+                    @endif
                 @endforeach
             </ul>
         </div>

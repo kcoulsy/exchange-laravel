@@ -10,38 +10,24 @@ class CategoriesController extends Controller
 {
     public function index()
     {
-        $sub_categories = Category::where('parent_id', null)->get();
+        $sub_categories = Category::where('parent_id', null)->withCount('recursiveListings')->get();
 
-        $sub_categories_with_full_count = $sub_categories->map(function ($sub_category) {
-            $sub_category->listings_count = $sub_category->getFlatDescendantsAttribute()->map(function ($sub_category) {
-                return $sub_category->listings()->count();
-            })->sum() + $sub_category->listings()->count();
-            return $sub_category;
-        });
+        $listings = Listing::with('media')->paginate(10);
 
-        $listings = Listing::paginate(10);
-
-        return view('categories.index')->with(['listings' => $listings, 'sub_categories' => $sub_categories_with_full_count]);
+        return view('categories.index')->with(['listings' => $listings, 'sub_categories' => $sub_categories]);
     }
 
     public function show(Category $category)
     {
-        $all_sub_categories = $category->getFlatDescendantsAttribute()->pluck('id');
+        $all_sub_categories = $category->descendantsAndSelf()->pluck('id')->toArray();
         $parent_category = $category->parent()->first();
-        $sub_categories = $category->children()->get();
+        $sub_categories = $category->children()->withCount('recursiveListings')->get();
 
-        $sub_categories_with_full_count = $sub_categories->map(function ($sub_category) {
-            $sub_category->listings_count = $sub_category->getFlatDescendantsAttribute()->map(function ($sub_category) {
-                return $sub_category->listings()->count();
-            })->sum() + $sub_category->listings()->count();
-            return $sub_category;
-        });
-
-        $listings = Listing::whereIn('category_id', [$category->id, ...$all_sub_categories->toArray()])->with('media')->paginate(10);
+        $listings = Listing::with('media')->whereIn('category_id', $all_sub_categories)->paginate(10);
 
         return view('categories.index')->with([
             'listings' => $listings,
-            'sub_categories' => $sub_categories_with_full_count,
+            'sub_categories' => $sub_categories,
             'category' => $category,
             'parent_category' => $parent_category
         ]);

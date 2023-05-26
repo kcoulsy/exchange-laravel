@@ -26,6 +26,7 @@
         "spatie/laravel-medialibrary": "^10.0.0",
         "spatie/laravel-permission": "^5.10",
         "spatie/laravel-settings": "^3.1",
+        "staudenmeir/laravel-adjacency-list": "^1.0",
         "symfony/http-client": "^6.2",
         "symfony/mailgun-mailer": "^6.2",
         "z3d0x/filament-logger": "^0.5.3"
@@ -33,6 +34,7 @@
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.8",
         "barryvdh/laravel-ide-helper": "^2.13",
+        "beyondcode/laravel-query-detector": "^1.7",
         "doctrine/dbal": "^3.6",
         "fakerphp/faker": "^1.9.1",
         "laravel/pint": "^1.0",
