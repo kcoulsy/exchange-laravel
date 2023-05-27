@@ -36,6 +36,8 @@ class CreateListingForm extends Component implements HasForms
         $fields['user_id'] = auth()->id();
         Listing::create($fields);
 
+        auth()->user()->subscription('default')->updateQuantity(auth()->user()->listings()->count());
+
         response()->redirectToRoute('categories.index');
     }
 

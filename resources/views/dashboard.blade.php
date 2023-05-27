@@ -56,14 +56,18 @@
                         @endif
                     </div>
                     <div class="divide-y divide-gray-50 -mt-2 flex flex-col">
-                        <div class="py-2 flex justify-between items-center">
-                            <p class="text-sm text-gray-600">Number of Listings</p>
-                            <p class="text-sm font-semibold">TODO</p>
-                        </div>
-                        <div class="py-2 flex justify-between items-center">
-                            <p class="text-sm text-gray-600">Cost / Month</p>
-                            <p class="text-sm font-semibold">TODO</p>
-                        </div>
+                        @if ($subscription)
+                            <div class="py-2 flex justify-between items-center">
+                                <p class="text-sm text-gray-600">Number of Listings</p>
+                                <p class="text-sm font-semibold">{{ $subscription->quantity }}</p>
+                            </div>
+                            <div class="py-2 flex justify-between items-center">
+                                <p class="text-sm text-gray-600">Upcoming Cost / Month</p>
+                                <p class="text-sm font-semibold">
+                                    £{{ number_format((($subscription->upcomingInvoice() && $subscription->upcomingInvoice()->amount_due) || 0) / 100, 2) }}
+                                </p>
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>

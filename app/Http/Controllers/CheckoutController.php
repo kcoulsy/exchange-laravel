@@ -12,7 +12,8 @@ class CheckoutController extends Controller
         auth()->user()->createOrGetStripeCustomer();
 
         return auth()->user()->newSubscription('default')
-            ->meteredPrice('price_1NCNuAAhmchRUw3z1OKyDJRd')
+            ->meteredPrice('price_1NCPdVAhmchRUw3zVnVtL1UQ')
+            ->quantity(auth()->user()->listings()->count())
             ->checkout([
                 'success_url' => route('dashboard'),
                 'cancel_url' => route('dashboard'),
