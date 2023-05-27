@@ -15,8 +15,7 @@ class MyListingsTable extends Component implements HasTable
 
     protected function getTableQuery()
     {
-        return Listing::query()
-            ->with(['category'])
+        return Listing::with(['category'])
             ->where('user_id', auth()->id());
     }
 
@@ -50,7 +49,7 @@ class MyListingsTable extends Component implements HasTable
     protected function getTableActions(): array
     {
         return [
-            // Tables\Actions\Action::make('View')->url(fn(Listing $record): string => route('listings.show', [$record->category()->first(), $record])),
+            Tables\Actions\Action::make('View')->url(fn(Listing $record): string => route('listings.show', [$record->category, $record])),
             // Tables\Actions\Action::make('View')->url(fn(Listing $record): string => route('listing.edit', $record)),
             // Tables\Actions\EditAction::make(),
         ];
