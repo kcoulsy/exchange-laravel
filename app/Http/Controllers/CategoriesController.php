@@ -16,10 +16,21 @@ class CategoriesController extends Controller
 
         $listings = Listing::with('media')->with('category')->paginate(10);
 
+        $selected_currencies = request()->input('currencies');
+        $selected_currencies = strlen($selected_currencies) > 0 ? explode(',', $selected_currencies) : [];
+        $selected_conditions = request()->input('conditions');
+        $selected_conditions = strlen($selected_conditions) > 0 ? explode(',', $selected_conditions) : [];
 
         return view('categories.index')->with([
             'listings' => $listings,
             'sub_categories' => $sub_categories,
+            'conditions' => Condition::all(),
+            'currencies' => Currency::all(),
+            'selected_conditions' => $selected_conditions,
+            'selected_currencies' => $selected_currencies,
+            'price_min' => request()->input('price_min'),
+            'price_max' => request()->input('price_max'),
+            'hide_por' => request()->input('hide_por'),
         ]);
     }
 

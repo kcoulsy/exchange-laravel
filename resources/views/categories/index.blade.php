@@ -80,7 +80,7 @@
                     <button class="flex-1 bg-blue-500 hover:bg-blue-600 text-white text-sm font-bold py-1 px-1 rounded">
                         Apply Filters
                     </button>
-                    <a href="/{{ $category->slug }}"
+                    <a href="/{{ isset($category) ? $category->slug : 'view-all' }}"
                         class="flex-1 bg-blue-500 hover:bg-blue-600 text-white text-sm font-bold py-1 px-1 rounded flex justify-center items-center">
                         Clear Filters
                     </a>

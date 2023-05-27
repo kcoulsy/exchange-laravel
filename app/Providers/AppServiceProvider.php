@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
+use App\Models\User;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
+use Laravel\Cashier\Cashier;
 use Spatie\CpuLoadHealthCheck\CpuLoadCheck;
 use Spatie\Health\Checks\Checks\DatabaseSizeCheck;
 use Spatie\Health\Checks\Checks\DebugModeCheck;
@@ -30,6 +32,9 @@ class AppServiceProvider extends ServiceProvider
         if ($this->app->environment('production')) {
             URL::forceScheme('https');
         }
+
+        Cashier::useCustomerModel(User::class);
+        // Cashier::calculateTaxes();
 
         Health::checks([
             OptimizedAppCheck::new(),

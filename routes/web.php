@@ -1,6 +1,9 @@
 <?php
 
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Route;
+use App\Models\User;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -15,15 +18,26 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('home');
+
 
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
     'verified'
 ])->group(function () {
+    Route::get('/billing-portal', function (Request $request) {
+        auth()->user()->createOrGetStripeCustomer();
+        return auth()->user()->redirectToBillingPortal(route('dashboard'));
+    });
+    Route::post('/subscription/create', [App\Http\Controllers\CheckoutController::class, 'store'])->name('checkout.store');
+
     Route::get('/dashboard', function () {
-        return view('dashboard');
+        $subscription = auth()->user()->subscription('default');
+
+        return view('dashboard', [
+            'subscription' => $subscription,
+        ]);
     })->name('dashboard');
 });
 
