@@ -43,6 +43,10 @@ Route::middleware([
     Route::get('/listings/create', [App\Http\Controllers\ListingsController::class, 'create'])->name('listings.create');
 });
 
+Route::get('/contact', function () {
+    return view('contact');
+})->name('contact');
+
 Route::get('/view-all', [App\Http\Controllers\CategoriesController::class, 'index'])->name('categories.index');
 Route::get('/{category:slug}', [App\Http\Controllers\CategoriesController::class, 'show'])->name('categories.show');
 Route::get('/{category:slug}/{listing:slug}', [App\Http\Controllers\ListingsController::class, 'show'])->name('listings.show');
