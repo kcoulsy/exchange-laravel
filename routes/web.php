@@ -39,6 +39,8 @@ Route::middleware([
             'subscription' => $subscription,
         ]);
     })->name('dashboard');
+
+    Route::get('/listings/create', [App\Http\Controllers\ListingsController::class, 'create'])->name('listings.create');
 });
 
 Route::get('/view-all', [App\Http\Controllers\CategoriesController::class, 'index'])->name('categories.index');

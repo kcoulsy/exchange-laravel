@@ -8,6 +8,11 @@ use Illuminate\Http\Request;
 
 class ListingsController extends Controller
 {
+    public function create()
+    {
+        return view('listings.create');
+    }
+
     public function show(Category $category, Listing $listing)
     {
         // dd([

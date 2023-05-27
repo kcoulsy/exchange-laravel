@@ -72,4 +72,9 @@ class User extends Authenticatable implements MustVerifyEmail, FilamentUser
         // return $this->hasAnyRole(['super-admin', 'admin']);
         // return $this->hasPermissionTo('read admin-panel');
     }
+
+    public function listings()
+    {
+        return $this->hasMany(Listing::class);
+    }
 }

@@ -18,6 +18,9 @@
                     <x-nav-link href="{{ route('categories.index') }}" :active="request()->routeIs('categories.index')">
                         {{ __('Listings') }}
                     </x-nav-link>
+                    <x-nav-link href="{{ route('listings.create') }}" :active="request()->routeIs('listings.create')">
+                        {{ __('Create Listing') }}
+                    </x-nav-link>
                 </div>
             </div>
             <div class="hidden sm:flex items-center sm:w-1/3">

@@ -67,6 +67,7 @@
                     </div>
                 </div>
             </div>
+            <livewire:my-listings-table />
         </div>
     </div>
 </x-app-layout>
