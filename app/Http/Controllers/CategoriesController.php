@@ -14,15 +14,41 @@ class CategoriesController extends Controller
     {
         $sub_categories = Category::where('parent_id', null)->withCount('recursiveListings')->get();
 
-        $listings = Listing::with('media')->with('category')->paginate(10);
+        $listings = Listing::with('media')->with('category');
 
         $selected_currencies = request()->input('currencies');
         $selected_currencies = strlen($selected_currencies) > 0 ? explode(',', $selected_currencies) : [];
         $selected_conditions = request()->input('conditions');
         $selected_conditions = strlen($selected_conditions) > 0 ? explode(',', $selected_conditions) : [];
 
+        if (count($selected_currencies) > 0) {
+            $listings = $listings->whereIn('currency_id', $selected_currencies);
+        }
+
+        if (count($selected_conditions) > 0) {
+            $listings = $listings->whereIn('condition_id', $selected_conditions);
+        }
+
+        $min_price = request()->input('price_min');
+
+        if (intval($min_price) > 0) {
+            $listings = $listings->where('price', '>=', intval($min_price));
+        }
+
+        $max_price = request()->input('price_max');
+
+        if (intval($max_price) > 0) {
+            $listings = $listings->where('price', '<=', intval($max_price));
+        }
+
+        $hide_por = request()->input('hide_por');
+
+        if ($hide_por == 'true') {
+            $listings = $listings->where('is_por', false);
+        }
+
         return view('categories.index')->with([
-            'listings' => $listings,
+            'listings' => $listings->paginate(10),
             'sub_categories' => $sub_categories,
             'conditions' => Condition::all(),
             'currencies' => Currency::all(),
@@ -40,15 +66,24 @@ class CategoriesController extends Controller
         $parent_category = $category->parent()->first();
         $sub_categories = $category->children()->withCount('recursiveListings')->get();
 
-        $listings = Listing::with('media')->with('category')->whereIn('category_id', $all_sub_categories)->paginate(10);
-
         $selected_currencies = request()->input('currencies');
         $selected_currencies = strlen($selected_currencies) > 0 ? explode(',', $selected_currencies) : [];
         $selected_conditions = request()->input('conditions');
         $selected_conditions = strlen($selected_conditions) > 0 ? explode(',', $selected_conditions) : [];
 
+        $listings = Listing::with('media')->with('category')->whereIn('category_id', $all_sub_categories);
+
+        if (count($selected_currencies) > 0) {
+            $listings = $listings->whereIn('currency_id', $selected_currencies);
+        }
+
+        if (count($selected_conditions) > 0) {
+            dd($selected_conditions);
+            $listings = $listings->whereIn('condition_id', $selected_conditions);
+        }
+
         return view('categories.index')->with([
-            'listings' => $listings,
+            'listings' => $listings->paginate(10),
             'sub_categories' => $sub_categories,
             'category' => $category,
             'parent_category' => $parent_category,

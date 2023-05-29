@@ -13,7 +13,7 @@ class CheckoutController extends Controller
 
         return auth()->user()->newSubscription('default')
             ->meteredPrice('price_1NCPdVAhmchRUw3zVnVtL1UQ')
-            ->quantity(auth()->user()->listings()->count())
+            ->quantity(auth()->user()->listings()->count() > 0 ? auth()->user()->listings()->count() : 1)
             ->checkout([
                 'success_url' => route('dashboard'),
                 'cancel_url' => route('dashboard'),

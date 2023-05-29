@@ -1,5 +1,6 @@
 <?php
 
+use App\Mail\ListingCreated;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Route;
 use App\Models\User;
