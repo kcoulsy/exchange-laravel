@@ -2,6 +2,7 @@
     'category' => null,
     'parent_category' => null,
     'sub_categories' => [],
+    'listings' => null,
     'conditions' => [],
     'currencies' => [],
     'selected_conditions' => [],
@@ -10,63 +11,112 @@
     'price_max' => null,
     'hide_por' => false,
 ])
-<div class="flex flex-col">
-    @if (isset($parent_category))
+<div class="flex flex-col w-full">
+    {{-- @if (isset($parent_category))
         <a href="/{{ $parent_category->slug }}">{{ $parent_category->name }}</a>
     @elseif (isset($category))
         <a href="/view-all">View All</a>
-    @endif
+    @endif --}}
 
-    @if (isset($category))
-        <h3 class="text-xl mt-4">{{ $category->name }}
-            {{ $listings->total() > 0 ? ' (' . $listings->total() . ')' : '' }}
-        </h3>
-    @endif
+    <ul role="list"
+        class="space-y-4 border-b border-gray-200 pb-6 text-sm font-medium text-gray-900 max-h-52 overflow-y-auto">
+        @foreach ($sub_categories as $sub_category)
+            @if ($sub_category->recursive_listings_count > 0)
+                <li>
+                    <a href="/{{ $sub_category->slug }}">{{ $sub_category->name }}
+                        ({{ $sub_category->recursive_listings_count }})
+                    </a>
+                </li>
+            @endif
+        @endforeach
 
-    <div class="bg-gray-200">
-        <ul class="pl-2 max-h-52 overflow-y-auto">
+    </ul>
 
-            @foreach ($sub_categories as $sub_category)
-                @if ($sub_category->recursive_listings_count > 0)
-                    <li>
-                        <a href="/{{ $sub_category->slug }}">{{ $sub_category->name }}
-                            ({{ $sub_category->recursive_listings_count }})
-                        </a>
-                    </li>
-                @endif
-            @endforeach
-        </ul>
-    </div>
     <form id="filter-form" action="">
+        <div x-data="{ open: true }" class="border-b border-gray-200 py-6">
+            <h3 class="-my-3 flow-root">
+                <button type="button" x-description="Expand/collapse section button"
+                    class="flex w-full items-center justify-between py-3 text-sm text-gray-400 hover:text-gray-500"
+                    aria-controls="filter-section-0" @click="open = !open" aria-expanded="true"
+                    x-bind:aria-expanded="open.toString()">
+                    <span class="font-medium text-gray-900">Conditions</span>
+                    <span class="ml-6 flex items-center">
+                        <svg class="h-5 w-5" x-description="Expand icon, show/hide based on section open state."
+                            x-show="!(open)" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"
+                            style="display: none;">
+                            <path
+                                d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z">
+                            </path>
+                        </svg>
+                        <svg class="h-5 w-5" x-description="Collapse icon, show/hide based on section open state."
+                            x-show="open" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                            <path fill-rule="evenodd"
+                                d="M4 10a.75.75 0 01.75-.75h10.5a.75.75 0 010 1.5H4.75A.75.75 0 014 10z"
+                                clip-rule="evenodd"></path>
+                        </svg>
+                    </span>
+                </button>
+            </h3>
+            <div class="pt-6" x-description="Filter section, show/hide based on section state." id="filter-section-0"
+                x-show="open">
+                <div class="space-y-4">
+                    @foreach ($conditions as $condition)
+                        <div class="flex items-center">
+                            <label for="condition_{{ $condition->id }}" class="ml-3 text-sm text-gray-600">
+                                <input id="condition_{{ $condition->id }}" name="color[]" value="purple" type="checkbox"
+                                    class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                                    {{ in_array($condition->id, $selected_conditions) ? 'checked="checked"' : '' }}>
+                                {{ $condition->name }}
+                            </label>
+                        </div>
+                    @endforeach
 
-        <h2 class="text-xl font-bold mt-4">Filters</h2>
-        <h3 class="mt-2">Conditions</h3>
-
-        <div class="flex flex-col">
-            @foreach ($conditions as $condition)
-                <label for="condition_{{ $condition->id }}">
-                    <input type="checkbox" name="condition" id="condition_{{ $condition->id }}"
-                        value="{{ $condition->id }}"
-                        {{ in_array($condition->id, $selected_conditions) ? 'checked="checked"' : '' }}>
-                    {{ $condition->name }}
-                </label>
-            @endforeach
+                </div>
+            </div>
         </div>
 
-        <h3 class="mt-4">Currencies</h3>
+        <div x-data="{ open: true }" class="border-b border-gray-200 py-6">
+            <h3 class="-my-3 flow-root">
+                <button type="button" x-description="Expand/collapse section button"
+                    class="flex w-full items-center justify-between py-3 text-sm text-gray-400 hover:text-gray-500"
+                    aria-controls="filter-section-0" @click="open = !open" aria-expanded="true"
+                    x-bind:aria-expanded="open.toString()">
+                    <span class="font-medium text-gray-900">Currencies</span>
+                    <span class="ml-6 flex items-center">
+                        <svg class="h-5 w-5" x-description="Expand icon, show/hide based on section open state."
+                            x-show="!(open)" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"
+                            style="display: none;">
+                            <path
+                                d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z">
+                            </path>
+                        </svg>
+                        <svg class="h-5 w-5" x-description="Collapse icon, show/hide based on section open state."
+                            x-show="open" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                            <path fill-rule="evenodd"
+                                d="M4 10a.75.75 0 01.75-.75h10.5a.75.75 0 010 1.5H4.75A.75.75 0 014 10z"
+                                clip-rule="evenodd"></path>
+                        </svg>
+                    </span>
+                </button>
+            </h3>
+            <div class="pt-6" x-description="Filter section, show/hide based on section state." id="filter-section-0"
+                x-show="open">
+                <div class="space-y-4">
+                    @foreach ($currencies as $currency)
+                        <div class="flex items-center">
+                            <input id="currency_{{ $currency->id }}" name="color[]" value="purple" type="checkbox"
+                                class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                                {{ in_array($currency->id, $selected_currencies) ? 'checked="checked"' : '' }}>
+                            <label for="currency_{{ $currency->id }}"
+                                class="ml-3 text-sm text-gray-600">{{ $currency->name }}</label>
+                        </div>
+                    @endforeach
 
-        <div class="flex flex-col">
-            @foreach ($currencies as $currency)
-                <label for="currency_{{ $currency->id }}">
-                    <input type="checkbox" name="currency" id="currency_{{ $currency->id }}"
-                        value="{{ $currency->id }}"
-                        {{ in_array($currency->id, $selected_currencies) ? 'checked="checked"' : '' }}>
-                    {{ $currency->name }}
-                </label>
-            @endforeach
+                </div>
+            </div>
         </div>
 
-        <h3 class="mt-4">Price</h3>
+        <h3 class="my-4 text-sm text-gray-900">Price</h3>
 
         <div class="flex flex-col">
             <label for="price_min">Min</label>
