@@ -1,6 +1,6 @@
 const filterForm = document.getElementById("filter-form");
 
-filterForm.addEventListener("submit", function (e) {
+filterForm?.addEventListener("submit", function (e) {
     e.preventDefault();
 
     const selectedConditions = document.querySelectorAll(
