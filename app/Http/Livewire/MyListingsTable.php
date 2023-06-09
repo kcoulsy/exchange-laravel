@@ -25,19 +25,10 @@ class MyListingsTable extends Component implements HasTable
             Tables\Columns\TextColumn::make('title')
                 ->searchable()
                 ->sortable(),
-            Tables\Columns\TextColumn::make('subtitle')
-                ->searchable()
-                ->sortable(),
             Tables\Columns\TextColumn::make('price'),
             Tables\Columns\IconColumn::make('is_por')
                 ->label('Hide Price')
                 ->boolean(),
-            Tables\Columns\TextColumn::make('description'),
-            Tables\Columns\TextColumn::make('location'),
-            Tables\Columns\TextColumn::make('created_at')
-                ->dateTime(),
-            Tables\Columns\TextColumn::make('updated_at')
-                ->dateTime(),
         ];
     }
 
