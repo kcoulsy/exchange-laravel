@@ -45,6 +45,8 @@
         </main>
     </div>
 
+    <x-cookie-banner />
+
     @stack('modals')
 
     @livewireScripts

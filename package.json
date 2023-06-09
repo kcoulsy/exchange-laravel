@@ -17,6 +17,7 @@
         "vite": "^4.0.0"
     },
     "dependencies": {
-        "autocompleter": "^8.0.3"
+        "autocompleter": "^8.0.3",
+        "js-cookie": "^3.0.5"
     }
 }
