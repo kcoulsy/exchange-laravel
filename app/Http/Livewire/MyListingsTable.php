@@ -27,9 +27,8 @@ class MyListingsTable extends Component implements HasTable
                 ->sortable(),
             Tables\Columns\TextColumn::make('price'),
             SpatieMediaLibraryImageColumn::make('images'),
-            Tables\Columns\IconColumn::make('is_por')
-                ->label('Hide Price')
-                ->boolean(),
+            Tables\Columns\TextColumn::make('Views')
+                ->getStateUsing(fn(Listing $record) => views($record)->count()),
         ];
     }
 

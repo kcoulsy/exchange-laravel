@@ -23,6 +23,8 @@ class ListingsController extends Controller
 
     public function show(Category $category, Listing $listing)
     {
+        views($listing)->record();
+
         return view('listings.show', [
             'category' => $category,
             'listing' => $listing,
