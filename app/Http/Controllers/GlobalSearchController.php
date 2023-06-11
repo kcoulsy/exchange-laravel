@@ -17,7 +17,7 @@ class GlobalSearchController extends Controller
 
         return response()->json([
             'categories' => $categories,
-            'listings' => $listings
+            'listings' => $listings,
         ]);
     }
 }

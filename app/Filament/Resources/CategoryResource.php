@@ -10,8 +10,6 @@ use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Str;
 
 class CategoryResource extends Resource
@@ -33,7 +31,7 @@ class CategoryResource extends Resource
                     ->autofocus()
                     ->required()
                     ->reactive()
-                    ->afterStateUpdated(fn($state, callable $set) => $set('slug', Str::slug($state))),
+                    ->afterStateUpdated(fn ($state, callable $set) => $set('slug', Str::slug($state))),
                 Forms\Components\TextInput::make('slug')
                     ->required()
                     ->maxLength(255),
@@ -48,7 +46,7 @@ class CategoryResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('parent.name')->label('Parent Category')->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('name')->sortable()->searchable(),
-                Tables\Columns\TextColumn::make('slug')->sortable()->searchable()
+                Tables\Columns\TextColumn::make('slug')->sortable()->searchable(),
             ])
             ->filters([
                 //

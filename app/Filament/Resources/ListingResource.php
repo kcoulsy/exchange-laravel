@@ -3,7 +3,6 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\ListingResource\Pages;
-use App\Filament\Resources\ListingResource\RelationManagers;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Condition;
@@ -16,9 +15,6 @@ use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Illuminate\Support\Str;
 
 class ListingResource extends Resource
 {
@@ -60,7 +56,7 @@ class ListingResource extends Resource
                 Forms\Components\TextInput::make('title')
                     ->required()
                     ->reactive()
-                    ->afterStateUpdated(fn($state, callable $set) => $set('slug', uniqid() . '-' . \Str::slug($state))),
+                    ->afterStateUpdated(fn ($state, callable $set) => $set('slug', uniqid().'-'.\Str::slug($state))),
                 Forms\Components\TextInput::make('slug')
                     ->required()
                     ->maxLength(255),

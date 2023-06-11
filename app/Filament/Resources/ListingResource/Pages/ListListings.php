@@ -14,15 +14,15 @@ class ListListings extends ListRecords
     protected function getActions(): array
     {
         $actions = [
-            Actions\CreateAction::make()
+            Actions\CreateAction::make(),
         ];
 
-        if (!app()->environment('production')) {
+        if (! app()->environment('production')) {
             $actions[] = Actions\Action::make('Seed 100 Listings')
                 ->label('Seed')
                 ->color('secondary')
                 ->icon('heroicon-o-refresh')
-                ->action(fn() => Listing::factory(100)->create());
+                ->action(fn () => Listing::factory(100)->create());
         }
 
         return $actions;

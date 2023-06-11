@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\Category;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
 
@@ -22,7 +21,7 @@ class Categories extends Seeder
 
         $steel_metal_cat = Category::updateOrCreate([
             'name' => 'Sheet Metal Machinery',
-            'slug' => Str::slug('Sheet Metal Machinery')
+            'slug' => Str::slug('Sheet Metal Machinery'),
         ])->parent()->associate($main_cat_industrial_machines)->save();
 
         Category::updateOrCreate(['name' => 'Decoiler', 'slug' => Str::slug('Decoiler')])->parent()->associate($steel_metal_cat)->save();
@@ -53,7 +52,7 @@ class Categories extends Seeder
 
         $woodworking_cat = Category::updateOrCreate([
             'name' => 'Woodworking Machinery',
-            'slug' => Str::slug('Woodworking Machinery')
+            'slug' => Str::slug('Woodworking Machinery'),
         ])->parent()->associate($main_cat_industrial_machines)->save();
 
         Category::updateOrCreate(['name' => 'Mortiser - Chisel', 'slug' => Str::slug('Mortiser - Chisel')])->parent()->associate($woodworking_cat)->save();
@@ -82,12 +81,12 @@ class Categories extends Seeder
 
         Category::updateOrCreate([
             'name' => 'Agricultural Machinery',
-            'slug' => Str::slug('Agricultural Machinery')
+            'slug' => Str::slug('Agricultural Machinery'),
         ])->parent()->associate($main_cat_industrial_machines)->save();
 
         $welding_cat = Category::updateOrCreate([
             'name' => 'Welding Equipment',
-            'slug' => Str::slug('Welding Equipment')
+            'slug' => Str::slug('Welding Equipment'),
         ])->parent()->associate($main_cat_industrial_tooling)->save();
 
         Category::updateOrCreate(['name' => 'Welding', 'slug' => Str::slug('Welding')])->parent()->associate($welding_cat)->save();
@@ -105,25 +104,25 @@ class Categories extends Seeder
 
         Category::updateOrCreate([
             'name' => 'Hand Tools',
-            'slug' => Str::slug('Hand Tools')
+            'slug' => Str::slug('Hand Tools'),
         ])->parent()->associate($main_cat_industrial_tooling)->save();
         Category::updateOrCreate([
             'name' => 'CNC Machinery',
-            'slug' => Str::slug('CNC Machinery')
+            'slug' => Str::slug('CNC Machinery'),
         ])->parent()->associate($main_cat_industrial_machines)->save();
         Category::updateOrCreate([
             'name' => 'Construction',
-            'slug' => Str::slug('Construction')
+            'slug' => Str::slug('Construction'),
         ])->parent()->associate($main_cat_industrial_tooling)->save();
 
         Category::updateOrCreate([
             'name' => 'Power Generation',
-            'slug' => Str::slug('Power Generation')
+            'slug' => Str::slug('Power Generation'),
         ])->parent()->associate($main_cat_industrial_machines)->save();
 
         $metal_cat = Category::updateOrCreate([
             'name' => 'Metal Fabrication Machinery',
-            'slug' => Str::slug('Metal Fabrication Machinery')
+            'slug' => Str::slug('Metal Fabrication Machinery'),
         ])->parent()->associate($main_cat_industrial_machines)->save();
 
         Category::updateOrCreate(['name' => 'Bending Rolls - Plate', 'slug' => Str::slug('Bending Rolls - Plate')])->parent()->associate($metal_cat)->save();
@@ -172,17 +171,17 @@ class Categories extends Seeder
 
         Category::updateOrCreate([
             'name' => 'Plastics Machinery',
-            'slug' => Str::slug('Plastics Machinery')
+            'slug' => Str::slug('Plastics Machinery'),
         ])->parent()->associate($main_cat_industrial_machines)->save();
 
         Category::updateOrCreate([
             'name' => 'Factory Equipment',
-            'slug' => Str::slug('Factory Equipment')
+            'slug' => Str::slug('Factory Equipment'),
         ])->parent()->associate($main_cat_industrial_tooling)->save();
 
         $industrial_supply_cat = Category::updateOrCreate([
             'name' => 'Industrial Supply / MRO',
-            'slug' => Str::slug('Industrial Supply / MRO')
+            'slug' => Str::slug('Industrial Supply / MRO'),
         ]);
 
         Category::updateOrCreate(['name' => 'Hydraulics & Pneumatics', 'slug' => Str::slug('Hydraulics & Pneumatics')])->parent()->associate($industrial_supply_cat)->save();
@@ -190,11 +189,11 @@ class Categories extends Seeder
 
         Category::updateOrCreate([
             'name' => 'Commercial Vehicles',
-            'slug' => Str::slug('Commercial Vehicles')
+            'slug' => Str::slug('Commercial Vehicles'),
         ])->parent()->associate($main_cat_vehicles)->save();
         Category::updateOrCreate([
             'name' => 'Plant Machinery',
-            'slug' => Str::slug('Plant Machinery')
+            'slug' => Str::slug('Plant Machinery'),
         ])->parent()->associate($main_cat_industrial_machines)->save();
 
         // Unknown - had parent_id = 0

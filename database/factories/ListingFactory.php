@@ -22,7 +22,8 @@ class ListingFactory extends Factory
     public function definition(): array
     {
         $title = $this->faker->sentence();
-        $slug = uniqid() . '-' . \Str::slug($title);
+        $slug = uniqid().'-'.\Str::slug($title);
+
         return [
             'title' => $title,
             'subtitle' => $this->faker->sentence(),
@@ -37,7 +38,6 @@ class ListingFactory extends Factory
             'condition_id' => Condition::all()->random()->id,
             'brand_id' => Brand::all()->random()->id,
             'user_id' => User::all()->random()->id,
-
 
         ];
     }

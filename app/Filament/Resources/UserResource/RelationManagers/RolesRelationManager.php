@@ -8,8 +8,6 @@ use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Resources\Table;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class RolesRelationManager extends RelationManager
 {
@@ -36,7 +34,7 @@ class RolesRelationManager extends RelationManager
                     ->searchable(),
                 TextColumn::make('name')
                     ->sortable()
-                    ->searchable()
+                    ->searchable(),
             ])
             ->filters([
                 //

@@ -7,7 +7,6 @@ use App\Models\Category;
 use App\Models\Condition;
 use App\Models\Currency;
 use App\Models\Listing;
-use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
@@ -32,7 +31,7 @@ class CreateListingForm extends Component implements HasForms
     public function submit(): void
     {
         $fields = $this->form->getState();
-        $fields['slug'] = uniqid() . '-' . \Str::slug($fields['title']);
+        $fields['slug'] = uniqid().'-'.\Str::slug($fields['title']);
         $fields['user_id'] = auth()->id();
         Listing::create($fields);
 
@@ -41,7 +40,6 @@ class CreateListingForm extends Component implements HasForms
         response()->redirectToRoute('categories.index');
     }
 
-
     protected function getFormSchema(): array
     {
         return [
@@ -49,7 +47,7 @@ class CreateListingForm extends Component implements HasForms
                 Forms\Components\TextInput::make('title')
                     ->required()
                     ->reactive()
-                    ->afterStateUpdated(fn($state, callable $set) => $set('slug', uniqid() . '-' . \Str::slug($state))),
+                    ->afterStateUpdated(fn ($state, callable $set) => $set('slug', uniqid().'-'.\Str::slug($state))),
                 Forms\Components\TextInput::make('slug')
                     ->required()
                     ->maxLength(255)

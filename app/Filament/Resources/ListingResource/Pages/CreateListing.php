@@ -3,7 +3,6 @@
 namespace App\Filament\Resources\ListingResource\Pages;
 
 use App\Filament\Resources\ListingResource;
-use Filament\Pages\Actions;
 use Filament\Resources\Pages\CreateRecord;
 
 class CreateListing extends CreateRecord

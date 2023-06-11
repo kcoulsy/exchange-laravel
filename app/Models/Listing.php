@@ -38,7 +38,7 @@ class Listing extends Model implements HasMedia
             'subtitle' => $this->subtitle,
             'model' => $this->model,
             'slug' => $this->slug,
-            'description' => $this->description
+            'description' => $this->description,
         ];
     }
 

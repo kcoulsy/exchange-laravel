@@ -6,7 +6,6 @@ use App\Models\Category;
 use App\Models\Condition;
 use App\Models\Currency;
 use App\Models\Listing;
-use Illuminate\Http\Request;
 
 class CategoriesController extends Controller
 {

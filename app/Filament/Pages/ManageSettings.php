@@ -4,8 +4,6 @@ namespace App\Filament\Pages;
 
 use App\Settings\GeneralSettings;
 use Filament\Forms;
-use Filament\Forms\Components\Repeater;
-use Filament\Forms\Components\TextInput;
 use Filament\Pages\SettingsPage;
 
 class ManageSettings extends SettingsPage

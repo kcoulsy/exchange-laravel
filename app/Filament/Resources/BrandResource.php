@@ -3,15 +3,12 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\BrandResource\Pages;
-use App\Filament\Resources\BrandResource\RelationManagers;
 use App\Models\Brand;
 use Filament\Forms;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Str;
 
 class BrandResource extends Resource
@@ -30,13 +27,13 @@ class BrandResource extends Resource
                     ->autofocus()
                     ->required()
                     ->reactive()
-                    ->afterStateUpdated(fn($state, callable $set) => $set('slug', Str::slug($state))),
+                    ->afterStateUpdated(fn ($state, callable $set) => $set('slug', Str::slug($state))),
                 Forms\Components\TextInput::make('slug')
                     ->autofocus()
                     ->required(),
                 Forms\Components\MarkdownEditor::make('description')
                     ->fileAttachmentsDisk('admin-uploads')
-                    ->fileAttachmentsVisibility('public')
+                    ->fileAttachmentsVisibility('public'),
             ]);
     }
 

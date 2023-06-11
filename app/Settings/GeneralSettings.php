@@ -6,7 +6,6 @@ use Spatie\LaravelSettings\Settings;
 
 class GeneralSettings extends Settings
 {
-
     public string $copyright;
 
     public string $privacy_policy;

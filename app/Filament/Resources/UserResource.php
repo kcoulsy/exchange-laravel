@@ -7,13 +7,10 @@ use App\Filament\Resources\UserResource\RelationManagers;
 use App\Models\User;
 use Filament\Forms;
 use Filament\Resources\Form;
-use Filament\Resources\Pages\Page;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
 use Filament\Tables\Filters\TrashedFilter;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class UserResource extends Resource
 {
@@ -63,7 +60,7 @@ class UserResource extends Resource
             ])
             ->filters([
                 TrashedFilter::make('only_trashed')
-                    ->label('Show Deleted')
+                    ->label('Show Deleted'),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

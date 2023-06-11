@@ -3,18 +3,14 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\RoleResource\Pages;
-use App\Filament\Resources\RoleResource\RelationManagers;
 use App\Filament\Resources\RoleResource\RelationManagers\PermissionsRelationManager;
 use Filament\Forms;
-use Filament\Forms\Components\MultiSelect;
 use Filament\Forms\Components\Select;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Spatie\Permission\Models\Role;
 
 class RoleResource extends Resource
@@ -50,14 +46,14 @@ class RoleResource extends Resource
                     ->searchable(),
                 TextColumn::make('name')
                     ->sortable()
-                    ->searchable()
+                    ->searchable(),
             ])
             ->filters([
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make()->visible(fn($record) => $record->name !== 'admin' && $record->name !== 'super-admin'),
-                Tables\Actions\DeleteAction::make()->visible(fn($record) => $record->name !== 'admin' && $record->name !== 'super-admin'),
+                Tables\Actions\EditAction::make()->visible(fn ($record) => $record->name !== 'admin' && $record->name !== 'super-admin'),
+                Tables\Actions\DeleteAction::make()->visible(fn ($record) => $record->name !== 'admin' && $record->name !== 'super-admin'),
             ])
             ->bulkActions([
                 // Tables\Actions\DeleteBulkAction::make(),

@@ -2,9 +2,6 @@
 
 namespace App\Http\Livewire;
 
-use Filament\Forms\Components\Card;
-use Filament\Forms\Components\Placeholder;
-use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Concerns\InteractsWithForms;
@@ -22,8 +19,8 @@ class ContactForm extends Component implements HasForms
         return view('livewire.contact-form');
     }
 
-
     public $title;
+
     public $content;
 
     protected function getFormSchema(): array
@@ -75,5 +72,4 @@ class ContactForm extends Component implements HasForms
     {
         return Ticket::class;
     }
-
 }

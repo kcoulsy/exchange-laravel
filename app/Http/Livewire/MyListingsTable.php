@@ -3,10 +3,9 @@
 namespace App\Http\Livewire;
 
 use App\Models\Listing;
+use Filament\Tables;
 use Filament\Tables\Concerns\InteractsWithTable;
 use Filament\Tables\Contracts\HasTable;
-use Filament\Tables;
-use Illuminate\Database\Query\Builder;
 use Livewire\Component;
 
 class MyListingsTable extends Component implements HasTable
@@ -40,7 +39,7 @@ class MyListingsTable extends Component implements HasTable
     protected function getTableActions(): array
     {
         return [
-            Tables\Actions\Action::make('View')->url(fn(Listing $record): string => route('listings.show', [$record->category, $record])),
+            Tables\Actions\Action::make('View')->url(fn (Listing $record): string => route('listings.show', [$record->category, $record])),
             // Tables\Actions\Action::make('View')->url(fn(Listing $record): string => route('listing.edit', $record)),
             // Tables\Actions\EditAction::make(),
         ];
