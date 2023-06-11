@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Models\Listing;
 use Filament\Tables;
+use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
 use Filament\Tables\Concerns\InteractsWithTable;
 use Filament\Tables\Contracts\HasTable;
 use Livewire\Component;
@@ -25,6 +26,7 @@ class MyListingsTable extends Component implements HasTable
                 ->searchable()
                 ->sortable(),
             Tables\Columns\TextColumn::make('price'),
+            SpatieMediaLibraryImageColumn::make('images'),
             Tables\Columns\IconColumn::make('is_por')
                 ->label('Hide Price')
                 ->boolean(),
@@ -39,7 +41,7 @@ class MyListingsTable extends Component implements HasTable
     protected function getTableActions(): array
     {
         return [
-            Tables\Actions\Action::make('View')->url(fn (Listing $record): string => route('listings.show', [$record->category, $record])),
+            Tables\Actions\Action::make('View')->url(fn(Listing $record): string => route('listings.show', [$record->category, $record])),
             // Tables\Actions\Action::make('View')->url(fn(Listing $record): string => route('listing.edit', $record)),
             // Tables\Actions\EditAction::make(),
         ];
