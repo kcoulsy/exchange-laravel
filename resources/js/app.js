@@ -27,13 +27,15 @@ window.denyCookies = function () {
 
 function setupAnalytics() {
     console.log("setupAnalytics");
+    const gtId = import.meta.env.VITE_GOOGLE_TAG_ID;
+    const clarityId = import.meta.env.VITE_MS_CLARITY_ID;
 
     const newScript = document.createElement("script");
     newScript.type = "text/javascript";
     newScript.setAttribute("async", "true");
     newScript.setAttribute(
         "src",
-        "https://www.googletagmanager.com/gtag/js?id=G-4T5JJW71G4"
+        "https://www.googletagmanager.com/gtag/js?id=" + gtId
     );
     document.documentElement.firstChild.appendChild(newScript);
 
@@ -44,7 +46,7 @@ function setupAnalytics() {
     }
     gtag("js", new Date());
 
-    gtag("config", "G-4T5JJW71G4");
+    gtag("config", gtId);
 
     (function (c, l, a, r, i, t, y) {
         c[a] =
@@ -57,7 +59,7 @@ function setupAnalytics() {
         t.src = "https://www.clarity.ms/tag/" + i;
         y = l.getElementsByTagName(r)[0];
         y.parentNode.insertBefore(t, y);
-    })(window, document, "clarity", "script", "hiuv1wuxif");
+    })(window, document, "clarity", "script", clarityId);
 }
 
 if (Cookies.get("cookie_consent") === "all") {
