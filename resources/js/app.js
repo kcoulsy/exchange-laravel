@@ -5,6 +5,11 @@ import NotificationsAlpinePlugin from "../../vendor/filament/notifications/dist/
 import "./global-search";
 import "./filters";
 import Cookies from "js-cookie";
+import * as Sentry from "@sentry/browser";
+
+Sentry.init({
+    dsn: import.meta.env.VITE_SENTRY_DSN_PUBLIC,
+});
 
 Alpine.plugin(Focus);
 Alpine.plugin(FormsAlpinePlugin);
@@ -13,6 +18,11 @@ Alpine.plugin(NotificationsAlpinePlugin);
 window.Alpine = Alpine;
 
 Alpine.start();
+
+window.getShouldShowCookieBanner = function () {
+    console.log("getShouldShowCookieBanner");
+    return Cookies.get("cookie_consent") === undefined;
+};
 
 window.allowCookies = function () {
     console.log("allowCookies");
