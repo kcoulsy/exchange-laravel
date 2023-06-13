@@ -63,7 +63,8 @@
                     @foreach ($conditions as $condition)
                         <div class="flex items-center">
                             <label for="condition_{{ $condition->id }}" class="ml-3 text-sm text-gray-600">
-                                <input id="condition_{{ $condition->id }}" name="color[]" value="purple" type="checkbox"
+                                <input id="condition_{{ $condition->id }}" name="condition" value="{{ $condition->id }}"
+                                    type="checkbox"
                                     class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
                                     {{ in_array($condition->id, $selected_conditions) ? 'checked="checked"' : '' }}>
                                 {{ $condition->name }}
@@ -104,7 +105,8 @@
                 <div class="space-y-4">
                     @foreach ($currencies as $currency)
                         <div class="flex items-center">
-                            <input id="currency_{{ $currency->id }}" name="color[]" value="purple" type="checkbox"
+                            <input id="currency_{{ $currency->id }}" name="currency" value="{{ $currency->id }}"
+                                type="checkbox"
                                 class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
                                 {{ in_array($currency->id, $selected_currencies) ? 'checked="checked"' : '' }}>
                             <label for="currency_{{ $currency->id }}"

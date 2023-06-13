@@ -44,6 +44,7 @@
             {{ $slot }}
         </main>
     </div>
+    <x-footer />
 
     <x-cookie-banner />
 
