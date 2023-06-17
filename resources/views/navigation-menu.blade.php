@@ -24,9 +24,7 @@
                 </div>
             </div>
             <div class="hidden sm:flex items-center sm:w-1/3">
-                <input type="text" id="global-search"
-                    class="shadow appearance-none border border-gray-300 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                    placeholder="Search">
+                <x-input type="text" id="global-search" class="w-full" placeholder="Search" />
             </div>
 
             <div class="hidden sm:flex sm:items-center sm:ml-6">
@@ -170,5 +168,9 @@
             </div>
 
         @endguest
+    </div>
+
+    <div class="block md:hidden bg-red w-full h-10 px-2">
+        <x-input type="text" id="global-search-mobile" class="w-full" placeholder="Search" />
     </div>
 </nav>

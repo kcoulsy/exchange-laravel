@@ -84,6 +84,7 @@ class CreateListingForm extends Component implements HasForms
                 ->required(),
 
             SpatieMediaLibraryFileUpload::make('images')
+                ->collection('images')
                 ->multiple()
                 ->enableReordering(),
             Grid::make(3)->schema([

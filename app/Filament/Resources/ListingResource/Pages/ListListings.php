@@ -18,11 +18,11 @@ class ListListings extends ListRecords
         ];
 
         if (! app()->environment('production')) {
-            $actions[] = Actions\Action::make('Seed 100 Listings')
+            $actions[] = Actions\Action::make('Seed 10 Listings')
                 ->label('Seed')
                 ->color('secondary')
                 ->icon('heroicon-o-refresh')
-                ->action(fn () => Listing::factory(100)->create());
+                ->action(fn () => Listing::factory(10)->create());
         }
 
         return $actions;

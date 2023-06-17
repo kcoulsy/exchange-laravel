@@ -22,11 +22,11 @@ class MyListingsTable extends Component implements HasTable
     protected function getTableColumns()
     {
         return [
+            SpatieMediaLibraryImageColumn::make('images')->collection('images'),
             Tables\Columns\TextColumn::make('title')
                 ->searchable()
                 ->sortable(),
             Tables\Columns\TextColumn::make('price'),
-            SpatieMediaLibraryImageColumn::make('images'),
             Tables\Columns\TextColumn::make('Views')
                 ->getStateUsing(fn(Listing $record) => views($record)->count()),
         ];

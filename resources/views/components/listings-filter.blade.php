@@ -32,117 +32,60 @@
 
     </ul>
 
-    <form id="filter-form" action="">
-        <div x-data="{ open: true }" class="border-b border-gray-200 py-6">
-            <h3 class="-my-3 flow-root">
-                <button type="button" x-description="Expand/collapse section button"
-                    class="flex w-full items-center justify-between py-3 text-sm text-gray-400 hover:text-gray-500"
-                    aria-controls="filter-section-0" @click="open = !open" aria-expanded="true"
-                    x-bind:aria-expanded="open.toString()">
-                    <span class="font-medium text-gray-900">Conditions</span>
-                    <span class="ml-6 flex items-center">
-                        <svg class="h-5 w-5" x-description="Expand icon, show/hide based on section open state."
-                            x-show="!(open)" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"
-                            style="display: none;">
-                            <path
-                                d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z">
-                            </path>
-                        </svg>
-                        <svg class="h-5 w-5" x-description="Collapse icon, show/hide based on section open state."
-                            x-show="open" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                            <path fill-rule="evenodd"
-                                d="M4 10a.75.75 0 01.75-.75h10.5a.75.75 0 010 1.5H4.75A.75.75 0 014 10z"
-                                clip-rule="evenodd"></path>
-                        </svg>
-                    </span>
-                </button>
-            </h3>
-            <div class="pt-6" x-description="Filter section, show/hide based on section state." id="filter-section-0"
-                x-show="open">
-                <div class="space-y-4">
-                    @foreach ($conditions as $condition)
-                        <div class="flex items-center">
-                            <label for="condition_{{ $condition->id }}" class="ml-3 text-sm text-gray-600">
-                                <input id="condition_{{ $condition->id }}" name="condition" value="{{ $condition->id }}"
-                                    type="checkbox"
-                                    class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                                    {{ in_array($condition->id, $selected_conditions) ? 'checked="checked"' : '' }}>
-                                {{ $condition->name }}
-                            </label>
-                        </div>
-                    @endforeach
-
-                </div>
-            </div>
-        </div>
-
-        <div x-data="{ open: true }" class="border-b border-gray-200 py-6">
-            <h3 class="-my-3 flow-root">
-                <button type="button" x-description="Expand/collapse section button"
-                    class="flex w-full items-center justify-between py-3 text-sm text-gray-400 hover:text-gray-500"
-                    aria-controls="filter-section-0" @click="open = !open" aria-expanded="true"
-                    x-bind:aria-expanded="open.toString()">
-                    <span class="font-medium text-gray-900">Currencies</span>
-                    <span class="ml-6 flex items-center">
-                        <svg class="h-5 w-5" x-description="Expand icon, show/hide based on section open state."
-                            x-show="!(open)" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"
-                            style="display: none;">
-                            <path
-                                d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z">
-                            </path>
-                        </svg>
-                        <svg class="h-5 w-5" x-description="Collapse icon, show/hide based on section open state."
-                            x-show="open" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                            <path fill-rule="evenodd"
-                                d="M4 10a.75.75 0 01.75-.75h10.5a.75.75 0 010 1.5H4.75A.75.75 0 014 10z"
-                                clip-rule="evenodd"></path>
-                        </svg>
-                    </span>
-                </button>
-            </h3>
-            <div class="pt-6" x-description="Filter section, show/hide based on section state." id="filter-section-0"
-                x-show="open">
-                <div class="space-y-4">
-                    @foreach ($currencies as $currency)
-                        <div class="flex items-center">
-                            <input id="currency_{{ $currency->id }}" name="currency" value="{{ $currency->id }}"
+    <form id="filter-form" action="" class="pb-16">
+        <x-filter-accordion title="Conditions">
+            <div class="space-y-4">
+                @foreach ($conditions as $condition)
+                    <div class="flex items-center">
+                        <label for="condition_{{ $condition->id }}" class="ml-3 text-sm text-gray-600">
+                            <input id="condition_{{ $condition->id }}" name="condition" value="{{ $condition->id }}"
                                 type="checkbox"
                                 class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                                {{ in_array($currency->id, $selected_currencies) ? 'checked="checked"' : '' }}>
-                            <label for="currency_{{ $currency->id }}"
-                                class="ml-3 text-sm text-gray-600">{{ $currency->name }}</label>
-                        </div>
-                    @endforeach
+                                {{ in_array($condition->id, $selected_conditions) ? 'checked="checked"' : '' }}>
+                            {{ $condition->name }}
+                        </label>
+                    </div>
+                @endforeach
 
-                </div>
             </div>
-        </div>
+        </x-filter-accordion>
+        <x-filter-accordion title="Currencies">
+            <div class="space-y-4">
+                @foreach ($currencies as $currency)
+                    <div class="flex items-center">
+                        <input id="currency_{{ $currency->id }}" name="currency" value="{{ $currency->id }}"
+                            type="checkbox"
+                            class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                            {{ in_array($currency->id, $selected_currencies) ? 'checked="checked"' : '' }}>
+                        <label for="currency_{{ $currency->id }}"
+                            class="ml-3 text-sm text-gray-600">{{ $currency->name }}</label>
+                    </div>
+                @endforeach
+            </div>
+        </x-filter-accordion>
+        <x-filter-accordion title="Price">
+            <div class="flex flex-col">
+                <label class="mb-2 text-sm text-gray-600" for="price_min">Min</label>
+                <x-input type="number" name="price_min" id="price_min" value="{{ $price_min }}" />
 
-        <h3 class="my-4 text-sm text-gray-900">Price</h3>
+                <label class="mb-2 text-sm text-gray-600" for="price_max">Max</label>
+                <x-input type="number" name="price_max" id="price_max" value="{{ $price_max }}" />
 
-        <div class="flex flex-col">
-            <label for="price_min">Min</label>
-            <input type="number" name="price_min" id="price_min"
-                class="shadow appearance-none border border-gray-300 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                value="{{ $price_min }}">
-
-            <label for="price_max">Max</label>
-            <input type="number" name="price_max" id="price_max"
-                class="shadow appearance-none border border-gray-300 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                value="{{ $price_max }}">
-
-            <label for="show_por" class="mt-1">
-                <input type="checkbox" name="show_por" id="show_por" {{ $hide_por ? '' : 'checked="checked"' }}>
-                Show Price on Request listings
-            </label>
-        </div>
+                <label for="show_por" class="my-2 text-sm text-gray-600 flex items-center">
+                    <input type="checkbox" name="show_por" id="show_por" {{ $hide_por ? '' : 'checked="checked"' }}>
+                    <span class="ml-2">
+                        Show Price on Request listings
+                    </span>
+                </label>
+            </div>
+        </x-filter-accordion>
 
         <div class="flex w-full gap-2 mt-4">
-            <button class="flex-1 bg-blue-500 hover:bg-blue-600 text-white text-sm font-bold py-1 px-1 rounded">
+            <button class="flex-1 bg-blue-500 hover:bg-blue-600 text-white text-sm py-1 px-1 rounded">
                 Apply Filters
             </button>
             <a href="/{{ isset($category) ? $category->slug : 'view-all' }}"
-                class="flex-1 bg-blue-500 hover:bg-blue-600 text-white text-sm font-bold py-1 px-1 rounded flex justify-center items-center">
+                class="flex-1 bg-blue-500 hover:bg-blue-600 text-white text-sm py-1 px-1 rounded flex justify-center items-center">
                 Clear Filters
             </a>
         </div>

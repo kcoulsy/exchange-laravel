@@ -11,6 +11,7 @@ use App\Models\Listing;
 use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
+use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
@@ -79,6 +80,7 @@ class ListingResource extends Resource
                     ->required()
                     ->maxLength(255),
                 SpatieMediaLibraryFileUpload::make('images')
+                    ->collection('images')
                     ->multiple()
                     ->enableReordering(),
             ]);
@@ -88,6 +90,7 @@ class ListingResource extends Resource
     {
         return $table
             ->columns([
+                SpatieMediaLibraryImageColumn::make('images')->collection('images'),
                 Tables\Columns\TextColumn::make('title')
                     ->searchable()
                     ->sortable(),
