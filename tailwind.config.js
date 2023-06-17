@@ -3,6 +3,7 @@ const colors = require("tailwindcss/colors");
 module.exports = {
     content: [
         "./resources/**/*.blade.php",
+        "./resources/**/*.js",
         "./vendor/filament/**/*.blade.php",
         "./vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php",
     ],

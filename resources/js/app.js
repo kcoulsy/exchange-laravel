@@ -4,6 +4,7 @@ import FormsAlpinePlugin from "../../vendor/filament/forms/dist/module.esm";
 import NotificationsAlpinePlugin from "../../vendor/filament/notifications/dist/module.esm";
 import "./global-search";
 import "./filters";
+import "./listing-carousel";
 import Cookies from "js-cookie";
 import * as Sentry from "@sentry/browser";
 
