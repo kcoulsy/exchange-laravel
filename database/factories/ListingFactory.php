@@ -23,9 +23,9 @@ class ListingFactory extends Factory
     public function definition(): array
     {
         $title = $this->faker->sentence();
-        $slug = uniqid().'-'.\Str::slug($title);
+        $slug = uniqid() . '-' . \Str::slug($title);
 
-           return [
+        return [
             'title' => $title,
             'subtitle' => $this->faker->sentence(),
             'price' => $this->faker->randomFloat(2, 0, 100000),
@@ -49,10 +49,10 @@ class ListingFactory extends Factory
      */
     public function configure()
     {
-        
+
         return $this->afterCreating(function (Listing $item) {
-            
-            $files = array_values(array_diff(scandir( __DIR__ .'/../../public/seed-images'), array('.', '..')));
+
+            $files = array_values(array_diff(scandir(__DIR__ . '/../../public/seed-images'), array('.', '..')));
             $num_images = rand(1, 4);
 
             for ($i = 0; $i < $num_images; $i++) {
@@ -65,7 +65,7 @@ class ListingFactory extends Factory
                     ->preservingOriginal()
                     ->withResponsiveImages()
                     ->toMediaCollection('images');
-            }             
+            }
         });
     }
 

@@ -57,7 +57,7 @@ class ListingResource extends Resource
                 Forms\Components\TextInput::make('title')
                     ->required()
                     ->reactive()
-                    ->afterStateUpdated(fn ($state, callable $set) => $set('slug', uniqid().'-'.\Str::slug($state))),
+                    ->afterStateUpdated(fn($state, callable $set) => $set('slug', uniqid() . '-' . \Str::slug($state))),
                 Forms\Components\TextInput::make('slug')
                     ->required()
                     ->maxLength(255),
@@ -80,7 +80,9 @@ class ListingResource extends Resource
                     ->required()
                     ->maxLength(255),
                 SpatieMediaLibraryFileUpload::make('images')
+                    ->disk('r2')
                     ->collection('images')
+                    ->responsiveImages()
                     ->multiple()
                     ->enableReordering(),
             ]);
@@ -90,7 +92,7 @@ class ListingResource extends Resource
     {
         return $table
             ->columns([
-                SpatieMediaLibraryImageColumn::make('images')->collection('images'),
+                SpatieMediaLibraryImageColumn::make('images')->disk('r2')->collection('images'),
                 Tables\Columns\TextColumn::make('title')
                     ->searchable()
                     ->sortable(),

@@ -17,12 +17,12 @@ class ListListings extends ListRecords
             Actions\CreateAction::make(),
         ];
 
-        if (! app()->environment('production')) {
-            $actions[] = Actions\Action::make('Seed 10 Listings')
+        if (!app()->environment('production')) {
+            $actions[] = Actions\Action::make('Seed 2 Listings')
                 ->label('Seed')
                 ->color('secondary')
                 ->icon('heroicon-o-refresh')
-                ->action(fn () => Listing::factory(10)->create());
+                ->action(fn() => Listing::factory(2)->create());
         }
 
         return $actions;

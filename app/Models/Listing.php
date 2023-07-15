@@ -30,9 +30,8 @@ class Listing extends Model implements HasMedia, Viewable
     public function registerMediaConversions(Media $media = null): void
     {
         $this
-            ->addMediaConversion('preview')
-            ->fit(Manipulations::FIT_CROP, 300, 300)
-            ->nonQueued();
+            ->addMediaCollection('images')
+            ->useDisk('r2');
     }
 
     public function toSearchableArray()
