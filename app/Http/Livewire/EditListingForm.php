@@ -120,14 +120,14 @@ class EditListingForm extends Component implements HasForms
             Forms\Components\TextInput::make('model')
                 ->maxLength(255)
                 ->required(),
-
             Forms\Components\MarkdownEditor::make('description')
                 ->fileAttachmentsDisk('admin-uploads')
                 ->fileAttachmentsVisibility('public')
                 ->required(),
-
             SpatieMediaLibraryFileUpload::make('images')
+                ->disk('r2')
                 ->collection('images')
+                ->responsiveImages()
                 ->multiple()
                 ->enableReordering(),
             Grid::make(3)->schema([
