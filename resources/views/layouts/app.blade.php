@@ -1,3 +1,4 @@
+@props(['with_filament' => false])
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
@@ -19,6 +20,11 @@
         }
     </style>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @if ($with_filament)
+        @vite(['resources/css/filament.css', 'resources/js/alpine-filament.js'])
+    @else
+        @vite(['resources/js/alpine-standar.js'])
+    @endif
 
     <!-- Styles -->
     @livewireStyles
