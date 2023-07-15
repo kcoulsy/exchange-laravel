@@ -23,7 +23,7 @@
     @if ($with_filament)
         @vite(['resources/css/filament.css', 'resources/js/alpine-filament.js'])
     @else
-        @vite(['resources/js/alpine-standar.js'])
+        @vite(['resources/js/alpine-standard.js'])
     @endif
 
     <!-- Styles -->
