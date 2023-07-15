@@ -4,8 +4,9 @@
             {{ __('Create a listing') }}
         </h2>
     </x-slot>
-    <div class="py-12 container mx-auto">
-
-        <livewire:create-listing-form />
+    <div class="relative">
+        <div class="py-12 container mx-auto">
+            <livewire:create-listing-form />
+        </div>
     </div>
 </x-app-layout>

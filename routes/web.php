@@ -40,6 +40,7 @@ Route::middleware([
     })->name('dashboard');
 
     Route::get('/listings/create', [App\Http\Controllers\ListingsController::class, 'create'])->name('listings.create');
+    Route::get('/listings/edit/{listing:id}', [App\Http\Controllers\ListingsController::class, 'edit'])->name('listings.edit');
 });
 
 Route::get('/contact', function () {

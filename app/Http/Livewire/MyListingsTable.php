@@ -41,7 +41,7 @@ class MyListingsTable extends Component implements HasTable
     {
         return [
             Tables\Actions\Action::make('View')->url(fn(Listing $record): string => route('listings.show', [$record->category, $record])),
-            // Tables\Actions\Action::make('View')->url(fn(Listing $record): string => route('listing.edit', $record)),
+            Tables\Actions\Action::make('Edit')->url(fn(Listing $record): string => route('listings.edit', $record)),
             // Tables\Actions\EditAction::make(),
         ];
     }

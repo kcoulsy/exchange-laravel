@@ -30,4 +30,11 @@ class ListingsController extends Controller
             'listing' => $listing,
         ]);
     }
+
+    public function edit(Listing $listing)
+    {
+        return view('listings.edit', [
+            'listing' => $listing,
+        ]);
+    }
 }

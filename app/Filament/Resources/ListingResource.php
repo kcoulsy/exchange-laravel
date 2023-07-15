@@ -25,6 +25,27 @@ class ListingResource extends Resource
 
     public static function form(Form $form): Form
     {
+        $categories = Category::all();
+
+        $categories_options = $categories->flatMap(function ($category) use ($categories) {
+            $parent_names = '';
+            $parent_id = $category->parent_id;
+
+            while ($parent_id) {
+                $parent = $categories->where('id', $parent_id)->first();
+                if ($parent) {
+                    $parent_names = $parent->name . ' > ' . $parent_names;
+                    $parent_id = $parent->parent_id;
+                } else {
+                    $parent_id = null;
+                }
+            }
+
+            return [
+                "{$category->id}" => $parent_names . $category->name,
+            ];
+        })->toArray();
+
         return $form
             ->schema([
                 Forms\Components\Select::make('user_id')
@@ -41,7 +62,7 @@ class ListingResource extends Resource
                 Forms\Components\Select::make('category_id')
                     ->label('Category')
                     ->required()
-                    ->options(Category::all()->pluck('name', 'id'))
+                    ->options($categories_options)
                     ->searchable(),
                 Forms\Components\Select::make('condition_id')
                     ->label('Condition')

@@ -7,38 +7,59 @@ use App\Models\Category;
 use App\Models\Condition;
 use App\Models\Currency;
 use App\Models\Listing;
-use Filament\Forms;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Components\View;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Livewire\Component;
+use Filament\Forms;
 
-class CreateListingForm extends Component implements HasForms
+class EditListingForm extends Component implements HasForms
 {
     use InteractsWithForms;
 
+    public Listing $listing;
+
     public function render()
     {
-        return view('livewire.create-listing-form');
+        return view('livewire.edit-listing-form');
     }
 
     public function mount(): void
     {
-        $this->form->fill();
+        $this->form->fill([
+            'title' => $this->listing->title,
+            'subtitle' => $this->listing->subtitle,
+            'slug' => $this->listing->slug,
+            'category_id' => $this->listing->category_id,
+            'condition_id' => $this->listing->condition_id,
+            'brand_id' => $this->listing->brand_id,
+            'currency_id' => $this->listing->currency_id,
+            'price' => $this->listing->price,
+            'description' => $this->listing->description,
+            'images' => $this->listing->getMedia('images'),
+            'location' => $this->listing->location,
+            'model' => $this->listing->model,
+            'is_por' => $this->listing->is_por,
+        ]);
     }
 
     public function submit(): void
     {
         $fields = $this->form->getState();
+        // TODO if slug is changed, we need to add a redirect from the old slug to the new one
+        // deleting the listing should remove all redirects
         $fields['slug'] = uniqid() . '-' . \Str::slug($fields['title']);
         $fields['user_id'] = auth()->id();
-        Listing::create($fields);
-
-        auth()->user()->subscription('default')->updateQuantity(auth()->user()->listings()->count());
+        $this->listing->update($fields);
 
         response()->redirectToRoute('categories.index');
+    }
+
+    protected function getFormModel(): Listing
+    {
+        return $this->listing;
     }
 
     protected function getFormSchema(): array
@@ -79,7 +100,6 @@ class CreateListingForm extends Component implements HasForms
             ]),
             Forms\Components\Select::make('category_id')
                 ->label('Category')
-                ->placeholder('Select a category')
                 ->required()
                 ->options($categories_options)
                 ->searchable(),
@@ -125,10 +145,5 @@ class CreateListingForm extends Component implements HasForms
                     ->required(),
             ]),
         ];
-    }
-
-    protected function getFormModel(): string
-    {
-        return Listing::class;
     }
 }
