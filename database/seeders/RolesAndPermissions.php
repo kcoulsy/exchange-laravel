@@ -100,5 +100,17 @@ class RolesAndPermissions extends Seeder
                 'remember_token' => Str::random(10),
             ]
         )->assignRole($adminRole);
+
+        User::updateOrCreate(
+            [
+                'name' => 'Guest',
+                'email' => 'guest@guest.com',
+            ],
+            [
+                'password' => bcrypt('password'),
+                'email_verified_at' => now(),
+                'remember_token' => Str::random(10),
+            ]
+        );
     }
 }

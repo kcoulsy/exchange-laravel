@@ -109,6 +109,7 @@ class CategoriesController extends Controller
             'price_max' => request()->input('price_max'),
             'hide_por' => request()->input('hide_por'),
             'parent_category' => $parent_category,
+            'category' => $category,
         ]);
     }
 }

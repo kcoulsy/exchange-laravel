@@ -25,6 +25,7 @@
             </div>
             <div class="hidden sm:flex items-center sm:w-1/3">
                 <x-input type="text" id="global-search" class="w-full" placeholder="Search" />
+                <x-button class="ml-2">Search</x-button>
             </div>
 
             <div class="hidden sm:flex sm:items-center sm:ml-6">
