@@ -6,7 +6,7 @@ use App\Models\Listing;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Tables;
-use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
+// use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
 use Filament\Tables\Concerns\InteractsWithTable;
 use Filament\Tables\Contracts\HasTable;
 use Livewire\Component;
@@ -25,7 +25,7 @@ class MyListingsTable extends Component implements HasForms, HasTable
     protected function getTableColumns()
     {
         return [
-            SpatieMediaLibraryImageColumn::make('images')->collection('images'),
+            // SpatieMediaLibraryImageColumn::make('images')->collection('images'),
             Tables\Columns\TextColumn::make('title')
                 ->searchable()
                 ->sortable(),

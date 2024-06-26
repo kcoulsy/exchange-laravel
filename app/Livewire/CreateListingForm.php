@@ -9,7 +9,7 @@ use App\Models\Currency;
 use App\Models\Listing;
 use Filament\Forms;
 use Filament\Forms\Components\Grid;
-use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
+// use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Components\View;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
@@ -104,12 +104,12 @@ class CreateListingForm extends Component implements HasForms
                 ->fileAttachmentsDisk('admin-uploads')
                 ->fileAttachmentsVisibility('public')
                 ->required(),
-            SpatieMediaLibraryFileUpload::make('images')
-                ->disk('r2')
-                ->collection('images')
-                ->responsiveImages()
-                ->multiple()
-                ->enableReordering(),
+            // SpatieMediaLibraryFileUpload::make('images')
+            //     ->disk('r2')
+            //     ->collection('images')
+            //     ->responsiveImages()
+            //     ->multiple()
+            //     ->enableReordering(),
             Grid::make(3)->schema([
                 Forms\Components\Select::make('currency_id')
                     ->label('Currency')

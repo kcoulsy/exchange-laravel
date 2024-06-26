@@ -10,7 +10,7 @@ use App\Models\Currency;
 use App\Models\Listing;
 use App\Models\User;
 use Filament\Forms;
-use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
+// use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -113,7 +113,7 @@ class ListingResource extends Resource
     {
         return $table
             ->columns([
-                SpatieMediaLibraryImageColumn::make('images')->disk('r2')->collection('images'),
+                // SpatieMediaLibraryImageColumn::make('images')->disk('r2')->collection('images'),
                 Tables\Columns\TextColumn::make('title')
                     ->searchable()
                     ->sortable(),
