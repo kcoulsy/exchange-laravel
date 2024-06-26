@@ -1,17 +1,20 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Livewire;
 
 use App\Models\Listing;
+use Filament\Forms\Concerns\InteractsWithForms;
+use Filament\Forms\Contracts\HasForms;
 use Filament\Tables;
 use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
 use Filament\Tables\Concerns\InteractsWithTable;
 use Filament\Tables\Contracts\HasTable;
 use Livewire\Component;
 
-class MyListingsTable extends Component implements HasTable
+class MyListingsTable extends Component implements HasForms, HasTable
 {
     use InteractsWithTable;
+    use InteractsWithForms;
 
     protected function getTableQuery()
     {
@@ -55,4 +58,6 @@ class MyListingsTable extends Component implements HasTable
     {
         return view('livewire.my-listings-table');
     }
+
+
 }

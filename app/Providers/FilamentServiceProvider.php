@@ -26,7 +26,7 @@ class FilamentServiceProvider extends ServiceProvider
         Filament::serving(function () {
             if (auth()->user() && auth()->user()->hasAnyRole(['super-admin', 'admin'])) {
                 Filament::registerUserMenuItems([
-                    UserMenuItem::make()->label('Manage Users')->url(UserResource::getUrl())->icon('heroicon-s-users'),
+                    // UserMenuItem::make()->label('Manage Users')->url(UserResource::getUrl())->icon('heroicon-s-users'),
                 ]);
             }
             Filament::registerNavigationGroups([
@@ -35,8 +35,8 @@ class FilamentServiceProvider extends ServiceProvider
                 'Admin',
             ]);
         });
-        FilamentEnvironmentIndicator::configureUsing(function (FilamentEnvironmentIndicator $indicator) {
-            $indicator->visible = fn () => true;
-        }, isImportant: true);
+        // FilamentEnvironmentIndicator::configureUsing(function (FilamentEnvironmentIndicator $indicator) {
+        //     $indicator->visible = fn () => true;
+        // }, isImportant: true);
     }
 }

@@ -17,13 +17,13 @@
     </style>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @if ($with_filament)
-        @vite(['resources/css/filament.css', 'resources/js/alpine-filament.js'])
+        @vite(['resources/js/alpine-filament.js'])
     @else
         @vite(['resources/js/alpine-standard.js'])
     @endif
 
     <!-- Styles -->
-    @livewireStyles
+    @filamentStyles
 </head>
 
 <body class="font-sans antialiased">
@@ -52,7 +52,7 @@
 
     @stack('modals')
 
-    @livewireScripts
+    @filamentScripts
 </body>
 
 </html>

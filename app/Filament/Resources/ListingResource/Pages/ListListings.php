@@ -11,7 +11,7 @@ class ListListings extends ListRecords
 {
     protected static string $resource = ListingResource::class;
 
-    protected function getActions(): array
+    protected function getHeaderActions(): array
     {
         $actions = [
             Actions\CreateAction::make(),
@@ -20,8 +20,8 @@ class ListListings extends ListRecords
         if (!app()->environment('production')) {
             $actions[] = Actions\Action::make('Seed 2 Listings')
                 ->label('Seed')
-                ->color('secondary')
-                ->icon('heroicon-o-refresh')
+                ->color('gray')
+                ->icon('heroicon-o-arrow-path')
                 ->action(fn() => Listing::factory(2)->create());
         }
 

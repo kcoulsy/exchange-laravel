@@ -10,7 +10,7 @@ class ManageCurrencies extends ManageRecords
 {
     protected static string $resource = CurrencyResource::class;
 
-    protected function getActions(): array
+    protected function getHeaderActions(): array
     {
         return [
             Actions\CreateAction::make(),

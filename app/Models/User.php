@@ -66,7 +66,7 @@ class User extends Authenticatable implements MustVerifyEmail, FilamentUser
         'profile_photo_url',
     ];
 
-    public function canAccessFilament(): bool
+    public function canAccessPanel(\Filament\Panel $panel): bool
     {
         return true;
         // return $this->hasAnyRole(['super-admin', 'admin']);
