@@ -7,9 +7,10 @@ use App\Models\Category;
 use App\Models\Condition;
 use App\Models\Currency;
 use App\Models\Listing;
+use Illuminate\Support\Str;
 use Filament\Forms;
 use Filament\Forms\Components\Grid;
-// use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
+use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Components\View;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
@@ -20,6 +21,8 @@ class CreateListingForm extends Component implements HasForms
 {
     use InteractsWithForms;
 
+    public Listing $listing;
+
     public ?array $data = [];
 
     public function render()
@@ -29,6 +32,7 @@ class CreateListingForm extends Component implements HasForms
 
     public function mount(): void
     {
+        $this->listing = new Listing();        
         $this->form->fill();
     }
 
@@ -36,9 +40,12 @@ class CreateListingForm extends Component implements HasForms
     {
         $fields = $this->form->getState();
 
-        $fields['slug'] = uniqid() . '-' . \Str::slug($fields['title']);
+        $fields['slug'] = uniqid() . '-' . Str::slug($fields['title']);
         $fields['user_id'] = auth()->id();
-        Listing::create($fields);
+        
+        $listing = Listing::create($fields);
+
+        $this->form->model($listing)->saveRelationships();
 
         // auth()->user()->subscription('default')->updateQuantity(auth()->user()->listings()->count());
 
@@ -71,9 +78,7 @@ class CreateListingForm extends Component implements HasForms
         return $form->schema([
             Grid::make(2)->schema([
                 Forms\Components\TextInput::make('title')
-                    ->required()
-                    ->reactive()
-                    ->afterStateUpdated(fn($state, callable $set) => $set('slug', uniqid() . '-' . \Str::slug($state))),
+                    ->required(),
                 Forms\Components\TextInput::make('slug')
                     ->required()
                     ->maxLength(255)
@@ -108,12 +113,11 @@ class CreateListingForm extends Component implements HasForms
                 ->fileAttachmentsDisk('admin-uploads')
                 ->fileAttachmentsVisibility('public')
                 ->required(),
-            // SpatieMediaLibraryFileUpload::make('images')
-            //     ->disk('r2')
-            //     ->collection('images')
-            //     ->responsiveImages()
-            //     ->multiple()
-            //     ->enableReordering(),
+            SpatieMediaLibraryFileUpload::make('images')
+                ->disk('r2')
+                ->collection('images')
+                ->responsiveImages()
+                ->multiple(),
             Grid::make(3)->schema([
                 Forms\Components\Select::make('currency_id')
                     ->label('Currency')
@@ -129,6 +133,7 @@ class CreateListingForm extends Component implements HasForms
                     ->required(),
             ]),
         ])
-        ->statePath('data');
+        ->statePath('data')
+        ->model(Listing::class);
     }
 }

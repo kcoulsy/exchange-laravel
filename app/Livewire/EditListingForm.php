@@ -5,15 +5,17 @@ namespace App\Livewire;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Condition;
+use Filament\Forms\Components\Hidden;
 use App\Models\Currency;
 use App\Models\Listing;
 use Filament\Forms\Components\Grid;
-// use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
+use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Components\View;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Livewire\Component;
 use Filament\Forms;
+use Illuminate\Support\Str;
 use Filament\Forms\Form;
 
 class EditListingForm extends Component implements HasForms
@@ -22,15 +24,19 @@ class EditListingForm extends Component implements HasForms
 
     public ?array $data = [];
     
+    public Listing $listing;
+
     public function render()
     {
         return view('livewire.edit-listing-form');
     }
 
-    public function mount(Listing $listing): void
+    public function mount(): void
     {
+        $listing = $this->listing;
 
         $this->form->fill([
+            'id' => $listing->id,
             'title' => $listing->title,
             'subtitle' => $listing->subtitle,
             'slug' => $listing->slug,
@@ -50,10 +56,12 @@ class EditListingForm extends Component implements HasForms
     public function submit(): void
     {
         $fields = $this->form->getState();
+
         // TODO if slug is changed, we need to add a redirect from the old slug to the new one
         // deleting the listing should remove all redirects
-        $fields['slug'] = uniqid() . '-' . \Str::slug($fields['title']);
+        $fields['slug'] = uniqid() . '-' . Str::slug($fields['title']);
         $fields['user_id'] = auth()->id();
+        
         $this->listing->update($fields);
 
         response()->redirectToRoute('categories.index');
@@ -84,11 +92,11 @@ class EditListingForm extends Component implements HasForms
         })->toArray();
 
         return $form->schema([
+            Hidden::make('id'),
             Grid::make(2)->schema([
                 Forms\Components\TextInput::make('title')
                     ->required()
-                    ->reactive()
-                    ->afterStateUpdated(fn($state, callable $set) => $set('slug', uniqid() . '-' . \Str::slug($state))),
+                    ->reactive(),
                 Forms\Components\TextInput::make('slug')
                     ->required()
                     ->maxLength(255)
@@ -123,12 +131,12 @@ class EditListingForm extends Component implements HasForms
                 ->fileAttachmentsDisk('admin-uploads')
                 ->fileAttachmentsVisibility('public')
                 ->required(),
-            // SpatieMediaLibraryFileUpload::make('images')
-            //     ->disk('r2')
-            //     ->collection('images')
-            //     ->responsiveImages()
-            //     ->multiple()
-            //     ->enableReordering(),
+            SpatieMediaLibraryFileUpload::make('images')
+                ->disk('r2')
+                ->collection('images')
+                ->responsiveImages()
+                ->multiple()
+                ->enableReordering(),
             Grid::make(3)->schema([
                 Forms\Components\Select::make('currency_id')
                     ->label('Currency')
@@ -144,6 +152,7 @@ class EditListingForm extends Component implements HasForms
                     ->required(),
             ]),
         ])
-        ->statePath('data');
+        ->statePath('data')
+        ->model($this->listing);
     }
 }

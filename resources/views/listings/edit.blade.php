@@ -5,6 +5,6 @@
         </h2>
     </x-slot>
     <div class="py-12 container mx-auto">
-        <livewire:edit-listing-form :listing="$listing" />
+        @livewire('edit-listing-form', ['listing' => $listing])
     </div>
 </x-app-layout>
