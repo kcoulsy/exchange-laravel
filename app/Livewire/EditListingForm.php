@@ -14,34 +14,36 @@ use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Livewire\Component;
 use Filament\Forms;
+use Filament\Forms\Form;
 
 class EditListingForm extends Component implements HasForms
 {
     use InteractsWithForms;
 
-    public Listing $listing;
-
+    public ?array $data = [];
+    
     public function render()
     {
         return view('livewire.edit-listing-form');
     }
 
-    public function mount(): void
+    public function mount(Listing $listing): void
     {
+
         $this->form->fill([
-            'title' => $this->listing->title,
-            'subtitle' => $this->listing->subtitle,
-            'slug' => $this->listing->slug,
-            'category_id' => $this->listing->category_id,
-            'condition_id' => $this->listing->condition_id,
-            'brand_id' => $this->listing->brand_id,
-            'currency_id' => $this->listing->currency_id,
-            'price' => $this->listing->price,
-            'description' => $this->listing->description,
-            'images' => $this->listing->getMedia('images'),
-            'location' => $this->listing->location,
-            'model' => $this->listing->model,
-            'is_por' => $this->listing->is_por,
+            'title' => $listing->title,
+            'subtitle' => $listing->subtitle,
+            'slug' => $listing->slug,
+            'category_id' => $listing->category_id,
+            'condition_id' => $listing->condition_id,
+            'brand_id' => $listing->brand_id,
+            'currency_id' => $listing->currency_id,
+            'price' => $listing->price,
+            'description' => $listing->description,
+            'images' => $listing->getMedia('images'),
+            'location' => $listing->location,
+            'model' => $listing->model,
+            'is_por' => $listing->is_por,
         ]);
     }
 
@@ -57,12 +59,8 @@ class EditListingForm extends Component implements HasForms
         response()->redirectToRoute('categories.index');
     }
 
-    protected function getFormModel(): Listing
-    {
-        return $this->listing;
-    }
-
-    protected function getFormSchema(): array
+  
+    protected function form(Form $form): Form
     {
         $categories = Category::all();
 
@@ -85,7 +83,7 @@ class EditListingForm extends Component implements HasForms
             ];
         })->toArray();
 
-        return [
+        return $form->schema([
             Grid::make(2)->schema([
                 Forms\Components\TextInput::make('title')
                     ->required()
@@ -100,6 +98,7 @@ class EditListingForm extends Component implements HasForms
             ]),
             Forms\Components\Select::make('category_id')
                 ->label('Category')
+                ->placeholder('Select a category')
                 ->required()
                 ->options($categories_options)
                 ->searchable(),
@@ -144,6 +143,7 @@ class EditListingForm extends Component implements HasForms
                     ->label('Price on Request')
                     ->required(),
             ]),
-        ];
+        ])
+        ->statePath('data');
     }
 }

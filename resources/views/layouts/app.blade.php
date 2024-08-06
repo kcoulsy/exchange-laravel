@@ -16,11 +16,6 @@
         }
     </style>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    @if ($with_filament)
-        @vite(['resources/js/alpine-filament.js'])
-    @else
-        @vite(['resources/js/alpine-standard.js'])
-    @endif
 
     <!-- Styles -->
     @filamentStyles

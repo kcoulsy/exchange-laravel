@@ -1,4 +1,6 @@
-<form wire:submit="submit">
+<div>
+    
+<form wire:submit="create">
     {{ $this->form }}
 
     <button type="submit"
@@ -6,3 +8,6 @@
         Create Listing
     </button>
 </form>
+
+    <x-filament-actions::modals />
+</div>

@@ -14,10 +14,13 @@ use Filament\Forms\Components\View;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Livewire\Component;
+use Filament\Forms\Form;
 
 class CreateListingForm extends Component implements HasForms
 {
     use InteractsWithForms;
+
+    public ?array $data = [];
 
     public function render()
     {
@@ -29,9 +32,10 @@ class CreateListingForm extends Component implements HasForms
         $this->form->fill();
     }
 
-    public function submit(): void
+    public function create(): void
     {
         $fields = $this->form->getState();
+
         $fields['slug'] = uniqid() . '-' . \Str::slug($fields['title']);
         $fields['user_id'] = auth()->id();
         Listing::create($fields);
@@ -41,7 +45,7 @@ class CreateListingForm extends Component implements HasForms
         response()->redirectToRoute('categories.index');
     }
 
-    protected function getFormSchema(): array
+    protected function form(Form $form): Form
     {
         $categories = Category::all();
 
@@ -64,7 +68,7 @@ class CreateListingForm extends Component implements HasForms
             ];
         })->toArray();
 
-        return [
+        return $form->schema([
             Grid::make(2)->schema([
                 Forms\Components\TextInput::make('title')
                     ->required()
@@ -124,11 +128,7 @@ class CreateListingForm extends Component implements HasForms
                     ->label('Price on Request')
                     ->required(),
             ]),
-        ];
-    }
-
-    protected function getFormModel(): string
-    {
-        return Listing::class;
+        ])
+        ->statePath('data');
     }
 }
