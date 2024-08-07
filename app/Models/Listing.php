@@ -27,6 +27,16 @@ class Listing extends Model implements HasMedia, Viewable
         return $this->belongsTo(Category::class);
     }
 
+    public function currency(): BelongsTo
+    {
+        return $this->belongsTo(Currency::class);
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+
     public function registerMediaConversions(Media $media = null): void
     {
         $this
