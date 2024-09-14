@@ -115,7 +115,6 @@ class Brands extends Seeder
         Brand::updateOrCreate(['name' => 'Aida', 'slug' => Str::slug('Aida')]);
         Brand::updateOrCreate(['name' => 'Hankook', 'slug' => Str::slug('Hankook')]);
         Brand::updateOrCreate(['name' => 'Bystronic Bylas', 'slug' => Str::slug('Bystronic Bylas')]);
-        Brand::updateOrCreate(['name' => 'TRUMPF', 'slug' => Str::slug('TRUMPF')]);
         Brand::updateOrCreate(['name' => 'Heyligenstaedt', 'slug' => Str::slug('Heyligenstaedt')]);
         Brand::updateOrCreate(['name' => 'Skoda', 'slug' => Str::slug('Skoda')]);
         Brand::updateOrCreate(['name' => 'Somua', 'slug' => Str::slug('Somua')]);
