@@ -19,7 +19,11 @@ class HomeController extends Controller
         $topLevelCategories = Category::whereNull('parent_id')->get();
 
         // Fetch the top 4 listings based on views for the past month
-        $popularListings = Listing::with(['currency', 'category', 'media'])->orderByViews('desc', Period::pastMonths(1))->take(4)->get();
+        $popularListings = Listing::with(['currency', 'category', 'media'])
+            ->whereNotIn('id', $latestListings->pluck('id'))
+            ->orderByViews('desc', Period::pastMonths(1))
+            ->take(4)
+            ->get();
 
         // Fetch the latest 2 published news articles
         $latestNews = News::where('is_published', true)->latest()->take(2)->get();

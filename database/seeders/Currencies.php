@@ -29,5 +29,24 @@ class Currencies extends Seeder
             'code' => 'GBP',
             'symbol' => '£',
         ]);
+
+        Currency::updateOrCreate([
+            'name' => 'Japanese Yen',
+            'code' => 'JPY',
+            'symbol' => '¥',
+        ]);
+
+        Currency::updateOrCreate([
+            'name' => 'Canadian Dollar',
+            'code' => 'CAD',
+            'symbol' => 'CA$',
+        ]);
+
+        Currency::updateOrCreate([
+            'name' => 'Australian Dollar',
+            'code' => 'AUD',
+            'symbol' => 'AUD$',
+        ]);
+
     }
 }

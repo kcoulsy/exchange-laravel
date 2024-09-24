@@ -25,8 +25,8 @@ class DatabaseSeeder extends Seeder
         // ]);
 
         // Call the ListingSeeder
-        $this->call([
-            ListingSeeder::class,
-        ]);
+        // $this->call([
+        //     ListingSeeder::class,
+        // ]);
     }
 }

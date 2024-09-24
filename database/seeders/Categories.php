@@ -13,6 +13,7 @@ class Categories extends Seeder
      */
     public function run(): void
     {
+        Category::updateOrCreate(['name' => 'Other', 'slug' => Str::slug('Other')]);
 
         $main_cat_industrial_machines = Category::updateOrCreate(['name' => 'Industrial Machines', 'slug' => Str::slug('Industrial Machines')]);
         $main_cat_industrial_tooling = Category::updateOrCreate(['name' => 'Industrial Tooling', 'slug' => Str::slug('Industrial Tooling')]);

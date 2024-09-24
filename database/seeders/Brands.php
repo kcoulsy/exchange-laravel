@@ -13,6 +13,8 @@ class Brands extends Seeder
      */
     public function run(): void
     {
+        Brand::updateOrCreate(['name' => 'Other', 'slug' => Str::slug('Other')]);
+
         Brand::updateOrCreate(['name' => 'Adira', 'slug' => Str::slug('Adira')]);
         Brand::updateOrCreate(['name' => 'AG', 'slug' => Str::slug('AG')]);
         Brand::updateOrCreate(['name' => 'AKYAPAK', 'slug' => Str::slug('AKYAPAK')]);
