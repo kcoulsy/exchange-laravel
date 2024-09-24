@@ -1,14 +1,14 @@
 <x-app-layout>
 
     <div class="container mx-auto">
-        <div class="mb-4">
+        <div class="my-4">
             <p>
-                <a href="/{{ $category->slug }}">
+                <a href="/{{ $category->slug }}" class="font-semibold">
                     Back to {{ $category->name }}
                 </a>
             </p>
         </div>
-        <div class="grid md:grid-cols-2 gap-6 lg:gap-12 items-start max-w-6xl px-4 mx-auto py-6">
+        <div class="grid md:grid-cols-2 gap-6 lg:gap-12 items-start max-w-6xl px-4 mx-auto pt-2 pb-6">
             <div class="grid gap-4 md:gap-8">
                 <div class="overflow-hidden w-full">
                     <!-- Slider main container -->

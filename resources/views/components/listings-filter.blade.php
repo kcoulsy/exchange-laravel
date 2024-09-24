@@ -18,21 +18,31 @@
         <a href="/view-all">View All</a>
     @endif --}}
 
-    <ul role="list"
-        class="space-y-4 border-b border-gray-200 pb-6 text-sm font-medium text-gray-900 max-h-52 overflow-y-auto">
-        @foreach ($sub_categories as $sub_category)
-            @if ($sub_category->recursive_listings_count > 0)
-                <li>
-                    <a href="/{{ $sub_category->slug }}">{{ $sub_category->name }}
-                        ({{ $sub_category->recursive_listings_count }})
-                    </a>
-                </li>
-            @endif
-        @endforeach
+    @if (count($sub_categories))
+        <ul role="list"
+            class="space-y-4 border-b border-gray-200 pb-6 text-sm font-medium text-gray-900 max-h-52 overflow-y-auto">
+            @foreach ($sub_categories as $sub_category)
+                @if ($sub_category->recursive_listings_count > 0)
+                    <li>
+                        <a href="/{{ $sub_category->slug }}">{{ $sub_category->name }}
+                            ({{ $sub_category->recursive_listings_count }})
+                        </a>
+                    </li>
+                @endif
+            @endforeach
 
-    </ul>
-
+        </ul>
+    @endif
     <form id="filter-form" action="" class="pb-16">
+        <div class="flex w-full gap-2">
+            <button class="flex-1 bg-blue-500 hover:bg-blue-600 text-white text-sm py-1 px-1 rounded">
+                Apply Filters
+            </button>
+            <a href="/{{ isset($category) ? $category->slug : 'view-all' }}"
+                class="flex-1 bg-blue-500 hover:bg-blue-600 text-white text-sm py-1 px-1 rounded flex justify-center items-center">
+                Clear Filters
+            </a>
+        </div>
         <x-filter-accordion title="Conditions">
             <div class="space-y-4">
                 @foreach ($conditions as $condition)
@@ -80,14 +90,6 @@
             </div>
         </x-filter-accordion>
 
-        <div class="flex w-full gap-2 mt-4">
-            <button class="flex-1 bg-blue-500 hover:bg-blue-600 text-white text-sm py-1 px-1 rounded">
-                Apply Filters
-            </button>
-            <a href="/{{ isset($category) ? $category->slug : 'view-all' }}"
-                class="flex-1 bg-blue-500 hover:bg-blue-600 text-white text-sm py-1 px-1 rounded flex justify-center items-center">
-                Clear Filters
-            </a>
-        </div>
+
     </form>
 </div>

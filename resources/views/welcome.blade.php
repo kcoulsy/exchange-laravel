@@ -1,7 +1,16 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Homepage') }}
-        </h2>
-    </x-slot>
+    <x-homepage.hero-carousel />
+
+    <!-- Pass the popular listings to the popular-listings component -->
+    <x-homepage.popular-listings :popularListings="$popularListings" />
+
+    <!-- Pass the top-level categories to the category-links component -->
+    <x-homepage.category-links :categories="$topLevelCategories" />
+
+    <!-- Pass the latest listings to the recent-listings component -->
+    <x-homepage.recent-listings :latestListings="$latestListings" />
+
+    <x-homepage.why-us />
+    <x-homepage.latest-news :latestNews="$latestNews" />
+    <x-homepage.about-us />
 </x-app-layout>

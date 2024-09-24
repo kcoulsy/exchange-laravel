@@ -1,7 +1,7 @@
 <x-app-layout>
 
     <div class="container mx-auto px-3 flex flex-col relative" x-data="{ filtersShownOnMobile: false }">
-        <div class="flex items-baseline justify-between border-b border-gray-200 pb-6 pt-16">
+        <div class="flex items-baseline justify-between border-b border-gray-200 pb-6 pt-6">
             <h1 class="text-4xl font-bold tracking-tight text-gray-900">
                 @if (isset($category))
                     {{ $category->name }}
