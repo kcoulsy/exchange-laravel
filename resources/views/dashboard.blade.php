@@ -7,7 +7,7 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
+            {{-- <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                 <div class="grid grid-cols-1 gap-8 lg:grid-cols-2 p-6 border border-grey-900 rounded-lg relative"><img
                         alt="" src="/billing/chart-dark.svg" class="absolute bottom-0 left-1/4 hidden lg:flex">
                     <div class="flex flex-col space-y-3">
@@ -70,7 +70,7 @@
                         @endif
                     </div>
                 </div>
-            </div>
+            </div> --}}
             <livewire:my-listings-table />
         </div>
     </div>

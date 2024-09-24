@@ -1,4 +1,4 @@
-@if (!Cookie::get('cookie_consent'))
+{{-- @if (!Cookie::get('cookie_consent'))
     <div x-data="{ open: true }" class="min-h-screen bg-gray-100 py-6 flex flex-col justify-center sm:py-12">
         <div x-show="open" x-transition:enter-start="opacity-0 scale-90"
             x-transition:enter="transition duration-200 transform ease"
@@ -19,4 +19,4 @@
         </div>
 
     </div>
-@endif
+@endif --}}
