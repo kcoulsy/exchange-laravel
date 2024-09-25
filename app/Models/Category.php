@@ -19,9 +19,15 @@ class Category extends Model
         return $this->hasMany(Listing::class);
     }
 
+    public function children()
+    {
+        return $this->hasMany(Category::class, 'parent_id');
+    }
+
     public function recursiveListings()
     {
-        return $this->hasManyOfDescendantsAndSelf(Listing::class);
+        return $this->hasManyThrough(Listing::class, Category::class, 'parent_id', 'category_id')
+            ->orWhere('listings.category_id', $this->id);
     }
 
     public function toSearchableArray()

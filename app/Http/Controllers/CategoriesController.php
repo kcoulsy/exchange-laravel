@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\Condition;
 use App\Models\Currency;
 use App\Models\Listing;
+use Illuminate\Support\Facades\DB;
 
 class CategoriesController extends Controller
 {
@@ -64,7 +65,7 @@ class CategoriesController extends Controller
         $parent_category = $category->parent()->first();
         $sub_categories = $category->children()->withCount('recursiveListings')->get();
 
-        $listings = Listing::with('media')->with('category')->whereIn('category_id', $all_sub_categories);
+        $listings = Listing::with(['media', 'category', 'brand', 'currency'])->whereIn('category_id', $all_sub_categories);
 
         $selected_currencies = request()->input('currencies');
         $selected_currencies = strlen($selected_currencies) > 0 ? explode(',', $selected_currencies) : [];
@@ -110,5 +111,36 @@ class CategoriesController extends Controller
             'parent_category' => $parent_category,
             'category' => $category,
         ]);
+    }
+
+    public function tree()
+    {
+        // Fetch all categories with their listings count
+        $categories = Category::withCount('recursiveListings')->get();
+
+        // Group categories by parent_id
+        $groupedCategories = $categories->groupBy('parent_id');
+
+        // Get top-level categories (those with null parent_id)
+        $topLevelCategories = $groupedCategories->get(null, collect());
+
+        // Function to get child categories up to 3 levels deep
+        $getChildCategories = function ($parentId, $level = 1) use (&$getChildCategories, $groupedCategories) {
+            if ($level > 3) {
+                return collect();
+            }
+            return $groupedCategories->get($parentId, collect())->map(function ($category) use ($getChildCategories, $level) {
+                $category->children = $getChildCategories($category->id, $level + 1);
+                return $category;
+            });
+        };
+
+        // Apply the function to top-level categories
+        $topLevelCategories = $topLevelCategories->map(function ($category) use ($getChildCategories) {
+            $category->children = $getChildCategories($category->id);
+            return $category;
+        });
+
+        return view('categories.tree', compact('groupedCategories', 'topLevelCategories'));
     }
 }

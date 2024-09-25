@@ -13,7 +13,6 @@ class Categories extends Seeder
      */
     public function run(): void
     {
-        Category::updateOrCreate(['name' => 'Other', 'slug' => Str::slug('Other')]);
 
         $main_cat_industrial_machines = Category::updateOrCreate(['name' => 'Industrial Machines', 'slug' => Str::slug('Industrial Machines')]);
         $main_cat_industrial_tooling = Category::updateOrCreate(['name' => 'Industrial Tooling', 'slug' => Str::slug('Industrial Tooling')]);
@@ -223,5 +222,7 @@ class Categories extends Seeder
         Category::updateOrCreate(['name' => 'Press - Knuckle Joint', 'slug' => Str::slug('Press - Knuckle Joint')])->parent()->associate($main_cat_industrial_tooling)->save();
         Category::updateOrCreate(['name' => 'Press - Clicker Punch Press', 'slug' => Str::slug('Press - Clicker Punch Press')])->parent()->associate($main_cat_industrial_tooling)->save();
 
+
+        Category::updateOrCreate(['name' => 'Other', 'slug' => Str::slug('Other')]);
     }
 }

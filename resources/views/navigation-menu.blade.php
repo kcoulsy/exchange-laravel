@@ -44,14 +44,15 @@
         <!-- Main header -->
         <div class="flex items-center justify-between py-4 px-4 lg:px-0">
             <a class="flex items-center space-x-2" href="{{ route('home') }}" rel="ugc">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                {{-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6">
                     <path d="M15 9h3a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2h-3"></path>
                     <path d="M11 15V9"></path>
                     <path d="M7 15V9"></path>
                     <path d="M3 5v14"></path>
                 </svg>
-                <span class="text-xl font-bold">ExchangeMachines</span>
+                <span class="text-xl font-bold">ExchangeMachines</span> --}}
+                <img src="{{ asset('assets/images/logo.gif') }}" alt="ExchangeMachines" class="h-12 w-auto">
             </a>
             <div class="hidden md:flex items-center space-x-4">
                 <form class="relative">
@@ -140,7 +141,7 @@
         <nav class="hidden md:flex space-x-6 py-2 text-sm">
             <a class="hover:text-primary" href="{{ route('categories.index') }}" rel="ugc">Buy Machinery</a>
             <a class="hover:text-primary" href="{{ route('listings.create') }}" rel="ugc">Sell Machinery</a>
-            <a class="hover:text-primary" href="{{ route('categories.index') }}" rel="ugc">Categories</a>
+            <a class="hover:text-primary" href="{{ route('categories.tree') }}" rel="ugc">Categories</a>
             <a class="hover:text-primary" href="#" rel="ugc">Manufacturers</a>
             <a class="hover:text-primary" href="#" rel="ugc">Dealers</a>
             <a class="hover:text-primary" href="{{ route('news.index') }}" rel="ugc">News</a>

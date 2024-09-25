@@ -47,8 +47,10 @@ Route::get('/contact', function () {
 })->name('contact');
 Route::get('/news', [NewsController::class, 'index'])->name('news.index');
 Route::get('/news/{slug}', [NewsController::class, 'show'])->name('news.show');
+Route::get('/categories', [App\Http\Controllers\CategoriesController::class, 'tree'])->name('categories.tree');
 
 Route::get('/view-all', [App\Http\Controllers\CategoriesController::class, 'index'])->name('categories.index');
 Route::get('/{category:slug}', [App\Http\Controllers\CategoriesController::class, 'show'])->name('categories.show');
 Route::get('/{category:slug}/{listing:slug}', [App\Http\Controllers\ListingsController::class, 'show'])->name('listings.show');
+
 
