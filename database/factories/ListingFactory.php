@@ -47,26 +47,26 @@ class ListingFactory extends Factory
      *
      * @return $this
      */
-    public function configure()
-    {
+    // public function configure()
+    // {
 
-        return $this->afterCreating(function (Listing $item) {
+    //     return $this->afterCreating(function (Listing $item) {
 
-            $files = array_values(array_diff(scandir(__DIR__ . '/../../public/seed-images'), array('.', '..')));
-            $num_images = rand(1, 4);
+    //         $files = array_values(array_diff(scandir(__DIR__ . '/../../public/seed-images'), array('.', '..')));
+    //         $num_images = rand(1, 4);
 
-            for ($i = 0; $i < $num_images; $i++) {
-                // randome image from seed-images
-                $slug = $files[rand(0, count($files) - 1)];
+    //         for ($i = 0; $i < $num_images; $i++) {
+    //             // randome image from seed-images
+    //             $slug = $files[rand(0, count($files) - 1)];
 
-                $url = public_path('/seed-images/' . $slug);
-                $item
-                    ->addMedia($url)
-                    ->preservingOriginal()
-                    ->withResponsiveImages()
-                    ->toMediaCollection('images');
-            }
-        });
-    }
+    //             $url = public_path('/seed-images/' . $slug);
+    //             $item
+    //                 ->addMedia($url)
+    //                 ->preservingOriginal()
+    //                 ->withResponsiveImages()
+    //                 ->toMediaCollection('images');
+    //         }
+    //     });
+    // }
 
 }

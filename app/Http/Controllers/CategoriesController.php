@@ -13,8 +13,7 @@ class CategoriesController extends Controller
     {
         $sub_categories = Category::where('parent_id', null)->withCount('recursiveListings')->get();
 
-        $listings = Listing::with('media')->with('category');
-
+        $listings = Listing::with(['media', 'category', 'brand', 'currency']);
         $selected_currencies = request()->input('currencies');
         $selected_currencies = strlen($selected_currencies) > 0 ? explode(',', $selected_currencies) : [];
         $selected_conditions = request()->input('conditions');
